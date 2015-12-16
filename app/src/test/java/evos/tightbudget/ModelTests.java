@@ -11,7 +11,6 @@ import static org.junit.Assert.assertTrue;
  */
 public class ModelTests {
 
-
     public static final String CATEGORY_NAME = "ExpectedName";
     private static final Amount BUDGET_AMOUNT = Amount.fromPence(200);
 
@@ -28,7 +27,6 @@ public class ModelTests {
         assertThat(expected.getName(), is(CATEGORY_NAME));
         assertThat(expected.getBudget().asPence(), is(expectedBudget));
     }
-
 
     @Test
     public void givenAnOutgoingExpenseIsAddedToACategory_theExpenseIsSuccessfullyAdded() {
@@ -54,6 +52,7 @@ public class ModelTests {
         category.addOutgoing(new OutgoingExpense("Item 2", Utils.getDate(2015,12,16), Amount.fromPence(100)));
 
         assertThat(category.getTotalSpend().asPence(), is(150));
-
     }
+
+
 }
