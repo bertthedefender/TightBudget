@@ -5,12 +5,11 @@ package evos.tightbudget;
  */
 interface BudgetCategory {
     String getName();
-
     Amount getBudget();
+    Amount getTotalSpend();
 
-    void addOutgoing(Outgoing outgoing);
-
+    void addOutgoing(Expense expense);
+    Expense getOutgoing(int index);
     int getOutgoingCount();
 
-    Outgoing getOutgoing(int index);
 }

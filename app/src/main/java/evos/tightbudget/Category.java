@@ -10,10 +10,10 @@ class Category implements BudgetCategory {
 
     private String categoryName;
     private Amount budgetAmount;
-    private List<Outgoing> outgoings;
+    private List<Expense> expenses;
 
     public Category(String categoryName, Amount budgetAmount) {
-        outgoings = new ArrayList<>();
+        expenses = new ArrayList<>();
 
         this.categoryName = categoryName;
         this.budgetAmount = budgetAmount;
@@ -30,17 +30,26 @@ class Category implements BudgetCategory {
     }
 
     @Override
-    public void addOutgoing(Outgoing outgoing) {
-        this.outgoings.add(outgoing);
+    public Amount getTotalSpend() {
+        int returnVal = 0;
+        for (Expense expense : expenses) {
+            returnVal += expense.getAmount().asPence();
+        }
+        return Amount.fromPence(returnVal);
+    }
+
+    @Override
+    public void addOutgoing(Expense expense) {
+        this.expenses.add(expense);
     }
 
     @Override
     public int getOutgoingCount() {
-        return outgoings.size();
+        return expenses.size();
     }
 
     @Override
-    public Outgoing getOutgoing(int index) {
-        return outgoings.get(index);
+    public Expense getOutgoing(int index) {
+        return expenses.get(index);
     }
 }

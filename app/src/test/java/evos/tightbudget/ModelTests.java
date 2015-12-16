@@ -35,15 +35,25 @@ public class ModelTests {
 
         BudgetCategory category = new Category(CATEGORY_NAME, BUDGET_AMOUNT);
 
-        Outgoing outgoing = new OutgoingExpense("ExpectedDescription", Utils.getDate(2001,01,01), Amount.fromPence(50));
+        Expense expense = new OutgoingExpense("ExpectedDescription", Utils.getDate(2001,01,01), Amount.fromPence(50));
 
-        category.addOutgoing(outgoing);
+        category.addOutgoing(expense);
 
         assertThat(category.getOutgoingCount(), is(1));
         assertThat(category.getOutgoing(0).getDescription(), is("ExpectedDescription"));
         assertThat(category.getOutgoing(0).getAmount().asPence(), is(50));
         assertTrue(category.getOutgoing(0).getDate().equals(Utils.getDate(2001,01,01)));
 
+    }
+
+    @Test
+    public void givenACateogryHasMultipleExpenses_theCorrectExpenseTotalIsCalculated() {
+
+        BudgetCategory category = new Category(CATEGORY_NAME, BUDGET_AMOUNT);
+        category.addOutgoing(new OutgoingExpense("Item 1", Utils.getDate(2015,12,15), Amount.fromPence(50)));
+        category.addOutgoing(new OutgoingExpense("Item 2", Utils.getDate(2015,12,16), Amount.fromPence(100)));
+
+        assertThat(category.getTotalSpend().asPence(), is(150));
 
     }
 }

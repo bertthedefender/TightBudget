@@ -6,7 +6,7 @@ import java.util.Date;
 /**
  * Created by mcdons20 on 14/12/15.
  */
-public class OutgoingExpense implements Outgoing {
+public class OutgoingExpense implements Expense {
     private final String description;
     private final Date date;
     private final Amount amount;
