@@ -1,8 +1,9 @@
 package evos.tightbudget;
 
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentActivity;
-import android.os.Bundle;
+import android.view.View;
 
 public class MainActivity extends FragmentActivity {
 
@@ -13,6 +14,13 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-       // fab = (FloatingActionButton)findViewById(R.id.main_addExpense_fab);
+        fab = (FloatingActionButton)findViewById(R.id.main_addExpense_fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogNewOutgoing fragment = new DialogNewOutgoing();
+
+            }
+        });
     }
 }

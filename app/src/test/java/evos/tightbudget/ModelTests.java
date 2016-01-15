@@ -45,7 +45,7 @@ public class ModelTests {
     }
 
     @Test
-    public void givenACateogryHasMultipleExpenses_theCorrectExpenseTotalIsCalculated() {
+    public void givenACategoryHasMultipleExpenses_theCorrectExpenseTotalIsCalculated() {
 
         BudgetCategory category = new Category(CATEGORY_NAME, BUDGET_AMOUNT);
         category.addOutgoing(new OutgoingExpense("Item 1", Utils.getDate(2015,12,15), Amount.fromPence(50)));
@@ -53,6 +53,7 @@ public class ModelTests {
 
         assertThat(category.getTotalSpend().asPence(), is(150));
     }
+
 
 
 }

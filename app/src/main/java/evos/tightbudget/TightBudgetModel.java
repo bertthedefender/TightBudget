@@ -1,5 +1,7 @@
 package evos.tightbudget;
 
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,5 +22,21 @@ class TightBudgetModel {
 
     public BudgetCategory getCategory(String expectedName) {
         return categories.get(expectedName);
+    }
+
+    public String asJSON() {
+
+        JSONObject modelJSON = new JSONObject();
+
+        for (Map.Entry<String,BudgetCategory> entry : categories.entrySet()) {
+
+            JSONObject categoryJSON = new JSONObject();
+            categoryJSON.put(entry.getKey(), entry.getValue().asJSON());
+
+
+        }
+
+        return modelJSON.toString();
+
     }
 }
