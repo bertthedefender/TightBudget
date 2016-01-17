@@ -1,5 +1,8 @@
 package evos.tightbudget;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +49,15 @@ class Category implements BudgetCategory {
     @Override
     public int getOutgoingCount() {
         return expenses.size();
+    }
+
+    @Override
+    public JSONObject asJSON() throws JSONException {
+        JSONObject json = new JSONObject();
+        json.put("categoryName", categoryName);
+        json.put("budgetAmount", budgetAmount);
+        json.put("expenses", expenses);
+        return json;
     }
 
     @Override

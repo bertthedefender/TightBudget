@@ -1,5 +1,7 @@
 package evos.tightbudget;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.Test;
 
 import static junit.framework.Assert.assertEquals;
@@ -11,7 +13,7 @@ public class PersistenceTests {
 
 
     @Test
-    public void givenAModelContainingMultipleCategories_theCorrectJSONIsOutput() {
+    public void givenAModelContainingMultipleCategories_theCorrectJSONIsOutput() throws JSONException {
 
         TightBudgetModel model = new TightBudgetModel();
 
@@ -22,7 +24,7 @@ public class PersistenceTests {
         model.addCategory(categoryB);
 
         String expectedJSON = "";
-        String outputJSON = model.asJSON();
+        JSONObject outputJSON = model.asJSON();
 
         assertEquals(expectedJSON, outputJSON);
     }

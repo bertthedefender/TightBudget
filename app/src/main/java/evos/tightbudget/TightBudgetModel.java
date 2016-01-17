@@ -1,8 +1,11 @@
 package evos.tightbudget;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,19 +27,22 @@ class TightBudgetModel {
         return categories.get(expectedName);
     }
 
-    public String asJSON() {
+    public JSONObject asJSON() throws JSONException {
 
         JSONObject modelJSON = new JSONObject();
+        List<JSONObject> categoriesAsJson = new ArrayList<>();
 
         for (Map.Entry<String,BudgetCategory> entry : categories.entrySet()) {
 
             JSONObject categoryJSON = new JSONObject();
             categoryJSON.put(entry.getKey(), entry.getValue().asJSON());
 
-
+            categoriesAsJson.add(categoryJSON);
         }
 
-        return modelJSON.toString();
+        modelJSON.put("categories", categoriesAsJson);
+
+        return modelJSON;
 
     }
 }
