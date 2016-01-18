@@ -4,8 +4,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
 
-import static junit.framework.Assert.assertEquals;
-
 /**
  * Created by mcdons20 on 15/01/16.
  */
@@ -23,10 +21,9 @@ public class PersistenceTests {
         model.addCategory(categoryA);
         model.addCategory(categoryB);
 
-        String expectedJSON = "";
         JSONObject outputJSON = model.asJSON();
 
-        assertEquals(expectedJSON, outputJSON);
+        assertTrue(outputJSON.get("CategoryA"));
     }
 
 
