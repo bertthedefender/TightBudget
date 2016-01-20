@@ -15,5 +15,6 @@ interface BudgetCategory {
     Expense getOutgoing(int index);
     int getOutgoingCount();
 
-    JSONObject asJSON() throws JSONException;
+    JSONObject asJson();
+
 }

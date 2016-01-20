@@ -52,13 +52,10 @@ class Category implements BudgetCategory {
     }
 
     @Override
-    public JSONObject asJSON() throws JSONException {
-        JSONObject json = new JSONObject();
-        json.put("categoryName", categoryName);
-        json.put("budgetAmount", budgetAmount);
-        json.put("expenses", expenses);
-        return json;
+    public JSONObject asJson() {
+        return null;
     }
+
 
     @Override
     public Expense getOutgoing(int index) {

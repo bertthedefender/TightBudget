@@ -29,20 +29,10 @@ class TightBudgetModel {
 
     public JSONObject asJSON() throws JSONException {
 
-        JSONObject modelJSON = new JSONObject();
-        List<JSONObject> categoriesAsJson = new ArrayList<>();
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("budgetModel", this);
 
-        for (Map.Entry<String,BudgetCategory> entry : categories.entrySet()) {
-
-            JSONObject categoryJSON = new JSONObject();
-            categoryJSON.put(entry.getKey(), entry.getValue().asJSON());
-
-            categoriesAsJson.add(categoryJSON);
-        }
-
-        modelJSON.put("categories", categoriesAsJson);
-
-        return modelJSON;
+        return jsonObject;
 
     }
 }
