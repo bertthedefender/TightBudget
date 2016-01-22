@@ -4,9 +4,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
 
+import java.util.Date;
+
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.TestCase.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Created by mcdons20 on 15/01/16.
@@ -17,7 +18,8 @@ public class PersistenceTests {
     @Test
     public void givenAnExpenseObject_theObjectCanBeCorrectlyConvertedToJson() throws JSONException {
 
-        Expense persistedExpense = new OutgoingExpense("Test Value", Utils.getDate(2016,1,20), Amount.fromPence(50));
+        Date expectedDate = Utils.getDate(2016,1,20);
+        Expense persistedExpense = new OutgoingExpense("Test Value", expectedDate, Amount.fromPence(50));
 
         String jsonOutput = persistedExpense.asJson().toString();
 
@@ -25,7 +27,15 @@ public class PersistenceTests {
 
         assertEquals("Test Value", parsedExpense.getDescription());
         assertEquals(50, parsedExpense.getAmount().asPence());
-        //TODO: Assert the date....
+        assertEquals(expectedDate.getTime(), parsedExpense.getDate().getTime());
+    }
+
+    @Test
+    public void givenABudgetCategoryObject_theOBjectCanBeCorrectlyConvertedToJson() throws JSONException {
+
+
+
+
     }
 
 

@@ -1,8 +1,6 @@
 package evos.tightbudget;
 
 
-import android.util.Log;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -43,7 +41,7 @@ public class OutgoingExpense implements Expense {
         try {
             jsonObject = new JSONObject();
             jsonObject.put("Description",description);
-            jsonObject.put("Date", date);
+            jsonObject.put("Date", date.getTime());
             jsonObject.put("Amount", amount.asPence());
         } catch (JSONException e) {
             return null;
@@ -57,7 +55,13 @@ public class OutgoingExpense implements Expense {
         Expense expense;
         try {
              jsonObject = new JSONObject(json);
-             expense = new OutgoingExpense(jsonObject.getString("Description"), Utils.getDate(2000,10,10),Amount.fromPence(jsonObject.getInt("Amount")));
+
+             String description = jsonObject.getString("Description");
+             Date date = new Date();
+             date.setTime(jsonObject.getLong("Date"));
+             Amount amount = Amount.fromPence(jsonObject.getInt("Amount"));
+
+             expense = new OutgoingExpense(description, date, amount);
         } catch (JSONException e) {
             return null;
         }
