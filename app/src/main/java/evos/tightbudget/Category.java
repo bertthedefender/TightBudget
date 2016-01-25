@@ -52,13 +52,39 @@ class Category implements BudgetCategory {
     }
 
     @Override
-    public JSONObject asJson() {
-        return null;
-    }
+    public String asJson() {
+        JSONObject jsonObject = new JSONObject();
 
+        try {
+            jsonObject.put("CategoryName", categoryName);
+            jsonObject.put("Amount", budgetAmount.asPence());
+        } catch (JSONException e) {
+            return null;
+        }
+
+        return jsonObject.toString();
+    }
 
     @Override
     public Expense getOutgoing(int index) {
         return expenses.get(index);
+    }
+
+    public static BudgetCategory fromJson(String json) {
+
+        JSONObject jsonObject;
+
+        BudgetCategory category = null;
+
+        try {
+            jsonObject = new JSONObject(json);
+            String categoryName = jsonObject.getString("CategoryName");
+            Amount budgetAmount = Amount.fromPence(jsonObject.getInt("Amount"));
+            category = new Category(categoryName, budgetAmount);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return category;
     }
 }
