@@ -25,12 +25,22 @@ class TightBudgetModel {
         return categories.get(expectedName);
     }
 
-    public JSONObject asJSON() throws JSONException {
+    public String asJSON() throws JSONException {
 
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("budgetModel", this);
 
-        return jsonObject;
+        for (Map.Entry<String, BudgetCategory> category : categories.entrySet()) {
+            jsonObject.put(category.getKey(), new JSONObject(categories.get(category.getKey()).asJson()));
+            jsonObject.put(category.getKey(), categories.get(category.getKey()).getOutgoings());
 
+
+        }
+
+        return jsonObject.toString();
+
+    }
+
+    public TightBudgetModel fromJson(String json) {
+        return new TightBudgetModel();
     }
 }

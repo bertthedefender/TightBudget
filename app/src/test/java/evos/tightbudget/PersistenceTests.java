@@ -6,6 +6,7 @@ import org.junit.Test;
 import java.util.Date;
 
 import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Created by mcdons20 on 15/01/16.
@@ -39,36 +40,36 @@ public class PersistenceTests {
 
         assertEquals("Category Name", parsedCategory.getName());
 
-
     }
 
 
-//    @Test
-//    public void givenAModelContainingMultipleCategories_theCorrectJSONIsOutput() throws JSONException {
-//
-//        TightBudgetModel model = new TightBudgetModel();
-//
-//        Category categoryA = new Category("CategoryA", Amount.fromPence(50));
-//        Category categoryB = new Category("CategoryB", Amount.fromPence(120));
-//
-//        model.addCategory(categoryA);
-//        model.addCategory(categoryB);
-//
-//        JSONObject outputJSON = model.asJSON();
-//
-//        String json = outputJSON.toString();
-//
-//        JSONObject parsedJSON = new JSONObject(json);
-//
-//        TightBudgetModel parsedModel = (TightBudgetModel)(parsedJSON.get("budgetModel"));
-//
-//        assertNotNull(parsedModel.getCategory("CategoryA"));
-//        assertEquals(parsedModel.getCategory("CategoryA").getBudget().asPence(),50);
-//
-//        assertNotNull(parsedModel.getCategory("CategoryB"));
-//        assertEquals(parsedModel.getCategory("CategoryB").getBudget().asPence(),120);
-//
-//    }
+    @Test
+    public void givenAModelContainingMultipleCategories_theCorrectJSONIsOutput() throws JSONException {
+
+        TightBudgetModel model = new TightBudgetModel();
+
+        Category categoryA = new Category("CategoryA", Amount.fromPence(50));
+        Category categoryB = new Category("CategoryB", Amount.fromPence(120));
+
+        categoryA.addOutgoing(new OutgoingExpense("Exp 1", Utils.getDate(2013,1,1), Amount.fromPence(50)));
+        categoryA.addOutgoing(new OutgoingExpense("Exp 2", Utils.getDate(2014,2,2), Amount.fromPence(120)));
+
+        categoryB.addOutgoing(new OutgoingExpense("Exp 3", Utils.getDate(2015,3,3), Amount.fromPence(270)));
+
+        model.addCategory(categoryA);
+        model.addCategory(categoryB);
+
+        String outputJSON = model.asJSON();
+
+        TightBudgetModel parsedModel = model.fromJson(outputJSON);
+
+        assertNotNull(parsedModel.getCategory("CategoryA"));
+        assertEquals(parsedModel.getCategory("CategoryA").getBudget().asPence(),50);
+
+        assertNotNull(parsedModel.getCategory("CategoryB"));
+        assertEquals(parsedModel.getCategory("CategoryB").getBudget().asPence(),120);
+
+    }
 
 
 }

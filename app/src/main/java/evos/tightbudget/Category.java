@@ -70,6 +70,11 @@ class Category implements BudgetCategory {
         return expenses.get(index);
     }
 
+    @Override
+    public List<Expense> getOutgoings() {
+        return expenses;
+    }
+
     public static BudgetCategory fromJson(String json) {
 
         JSONObject jsonObject;
