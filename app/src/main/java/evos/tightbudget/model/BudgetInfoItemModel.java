@@ -6,9 +6,9 @@ package evos.tightbudget.model;
 public class BudgetInfoItemModel {
 
     public final String title;
-    public final String description;
+    public final Amount description;
 
-    public BudgetInfoItemModel(String title, String description) {
+    public BudgetInfoItemModel(String title, Amount description) {
         this.title = title;
         this.description = description;
     }

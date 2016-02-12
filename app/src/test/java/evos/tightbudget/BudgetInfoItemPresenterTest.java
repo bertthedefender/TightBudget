@@ -2,6 +2,7 @@ package evos.tightbudget;
 
 import org.junit.Test;
 
+import evos.tightbudget.model.Amount;
 import evos.tightbudget.model.BudgetInfoItemModel;
 import evos.tightbudget.presenter.BudgetInfoItemPresenter;
 import evos.tightbudget.view.BudgetInfoView;
@@ -17,7 +18,7 @@ public class BudgetInfoItemPresenterTest {
     class CapturingBudgetInfoView implements BudgetInfoView {
 
         public String titleSet;
-        public String descriptionSet;
+        public Amount descriptionSet;
 
         @Override
         public void setTitle(String title) {
@@ -26,7 +27,7 @@ public class BudgetInfoItemPresenterTest {
         }
 
         @Override
-        public void setDescription(String description) {
+        public void setAmount(Amount description) {
 
             descriptionSet = description;
         }
@@ -37,7 +38,7 @@ public class BudgetInfoItemPresenterTest {
     public void whenABudgetInfoItemPresenter_HasBudgetInfoSetOnIt_ItTellsTheViewAboutTheData()
     {
         String expectedTitle = "expectedTitle";
-        String expectedDescription = "expectedDescription";
+        Amount expectedDescription = "expectedDescription";
 
         CapturingBudgetInfoView capturingBudgetInfoView = new CapturingBudgetInfoView();
 

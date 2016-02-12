@@ -17,6 +17,6 @@ public class BudgetInfoItemPresenter {
 
     public void bind() {
         view.setTitle(budgetInfoItemModel.title);
-        view.setDescription(budgetInfoItemModel.description);
+        view.setAmount(budgetInfoItemModel.description);
     }
 }
