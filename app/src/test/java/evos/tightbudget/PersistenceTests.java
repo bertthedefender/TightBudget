@@ -5,6 +5,14 @@ import org.junit.Test;
 
 import java.util.Date;
 
+import evos.tightbudget.model.Amount;
+import evos.tightbudget.model.BudgetCategory;
+import evos.tightbudget.model.Category;
+import evos.tightbudget.model.Expense;
+import evos.tightbudget.model.OutgoingExpense;
+import evos.tightbudget.model.TightBudgetModel;
+import evos.tightbudget.model.Utils;
+
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 

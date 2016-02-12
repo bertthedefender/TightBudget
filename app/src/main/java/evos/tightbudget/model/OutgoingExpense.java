@@ -1,4 +1,4 @@
-package evos.tightbudget;
+package evos.tightbudget.model;
 
 
 import org.json.JSONException;

@@ -1,6 +1,4 @@
-package evos.tightbudget;
-
-import org.json.JSONObject;
+package evos.tightbudget.model;
 
 import java.util.Date;
 

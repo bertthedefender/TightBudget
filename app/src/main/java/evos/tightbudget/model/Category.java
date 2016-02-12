@@ -1,4 +1,4 @@
-package evos.tightbudget;
+package evos.tightbudget.model;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by mcdons20 on 14/12/15.
  */
-class Category implements BudgetCategory {
+public class Category implements BudgetCategory {
 
     private String categoryName;
     private Amount budgetAmount;

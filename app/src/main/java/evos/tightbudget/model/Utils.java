@@ -1,4 +1,4 @@
-package evos.tightbudget;
+package evos.tightbudget.model;
 
 import java.util.Calendar;
 import java.util.Date;

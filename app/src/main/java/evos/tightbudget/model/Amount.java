@@ -1,4 +1,4 @@
-package evos.tightbudget;
+package evos.tightbudget.model;
 
 /**
  * Created by mcdons20 on 14/12/15.

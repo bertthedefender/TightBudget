@@ -1,11 +1,11 @@
-package evos.tightbudget;
+package evos.tightbudget.model;
 
 import java.util.List;
 
 /**
  * Created by mcdons20 on 14/12/15.
  */
-interface BudgetCategory extends JSONPersistence {
+public interface BudgetCategory extends JSONPersistence {
     String getName();
     Amount getBudget();
     Amount getTotalSpend();
