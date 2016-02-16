@@ -1,7 +1,5 @@
 package evos.tightbudget;
 
-import android.widget.Adapter;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -48,19 +46,8 @@ public class CategoryFragmentPresenterTest {
         assertThat(capturingCategoryFragment.categoryName, is(EXPECTED_CATEGORY_NAME));
         assertThat(capturingCategoryFragment.currentSpend.asPence(), is(EXPECTED_CURRENT_POSITION.asPence()));
         assertThat(capturingCategoryFragment.budgetTotal.asPence(), is(EXPECTED_BUDGET_AMOUNT.asPence()));
-
-    }
-
-    @Test
-    public void givenACategory_theCategoryFragmentPresenter_setsTheDatasetAccordingly() {
-
-        CategoryFragmentPresenter categoryFragmentPresenter = new CategoryFragmentPresenter(capturingCategoryFragment, category);
-
-        categoryFragmentPresenter.bind();
-
         assertThat(capturingCategoryFragment.capturedData.size(), is(1));
     }
-
 
     private class CapturingCategoryFragment implements CategoryFragmentView {
 
