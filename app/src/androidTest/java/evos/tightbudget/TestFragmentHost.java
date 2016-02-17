@@ -7,10 +7,10 @@ import android.app.Fragment;
 /**
  * Created by mcdons20 on 16/02/16.
  */
-public class FragmentHost extends Activity {
+public class TestFragmentHost extends Activity {
 
 
-    public void addFragment(Fragment fragment) {
+    public void addFragment(android.app.Fragment fragment) {
 
         getFragmentManager().beginTransaction().add(fragment, null).commit();
 
