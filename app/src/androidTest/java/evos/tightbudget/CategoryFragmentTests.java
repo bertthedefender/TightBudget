@@ -45,10 +45,13 @@ public class CategoryFragmentTests extends ActivityInstrumentationTestCase2<Test
         getInstrumentation().waitForIdleSync();
 
         TextView categoryName = (TextView)categoryFragment.getView().findViewById(R.id.category_fragment_name);
+        TextView categoryOutgoing = (TextView)categoryFragment.getView().findViewById(R.id.category_fragment_spent);
 
         String expectedName = EXPECTED_CATEGORY_NAME;
+        String expectedOutgoing = String.valueOf(EXPECTED_CURRENT_POSITION.asPence());
 
         assertEquals(expectedName, categoryName.getText());
+        assertEquals(expectedOutgoing, categoryOutgoing.getText());
 
 
     }

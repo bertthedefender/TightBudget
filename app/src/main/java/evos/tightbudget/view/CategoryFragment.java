@@ -18,6 +18,7 @@ import evos.tightbudget.model.Expense;
  */
 public class CategoryFragment extends android.app.Fragment implements CategoryFragmentView {
     private TextView categoryNameView;
+    private TextView categoryCurrentSpend;
 
     private Amount currentSpend;
     private Amount budgetTotal;
@@ -43,8 +44,10 @@ public class CategoryFragment extends android.app.Fragment implements CategoryFr
         View view = inflater.inflate(R.layout.category_fragment, container, false);
 
         categoryNameView = (TextView)view.findViewById(R.id.category_fragment_name);
+        categoryCurrentSpend = (TextView)view.findViewById(R.id.category_fragment_spent);
 
         categoryNameView.setText(this.categoryName);
+        categoryCurrentSpend.setText(String.valueOf(this.currentSpend.asPence()));
 
         return view;
     }

@@ -9,7 +9,6 @@ import android.app.Fragment;
  */
 public class TestFragmentHost extends Activity {
 
-
     public void addFragment(android.app.Fragment fragment) {
 
         getFragmentManager().beginTransaction().add(fragment, null).commit();
