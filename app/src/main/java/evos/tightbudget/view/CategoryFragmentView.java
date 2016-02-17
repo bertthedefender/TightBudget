@@ -1,7 +1,5 @@
 package evos.tightbudget.view;
 
-import android.widget.Adapter;
-
 import java.util.List;
 
 import evos.tightbudget.model.Amount;
@@ -12,6 +10,5 @@ import evos.tightbudget.model.Expense;
  */
 public interface CategoryFragmentView {
     void setCurrentPosition(String categoryName, Amount currentSpend, Amount budgetTotal);
-
     void setExpenseData(List<Expense> adapter);
 }
