@@ -11,7 +11,7 @@ import java.util.Map;
  */
 public class TightBudgetModel {
 
-    private Map<String, BudgetCategory> categories;
+    public Map<String, BudgetCategory> categories;
 
     public TightBudgetModel() {
         categories = new HashMap<>();
