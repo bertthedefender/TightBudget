@@ -10,9 +10,9 @@ import evos.tightbudget.model.Amount;
 import evos.tightbudget.model.Category;
 import evos.tightbudget.model.OutgoingExpense;
 import evos.tightbudget.model.TightBudgetModel;
-import evos.tightbudget.presenter.CategoryFragmentPresenter;
+import evos.tightbudget.presenter.MainScreenPresenter;
 import evos.tightbudget.view.CategoryFragmentView;
-import evos.tightbudget.view.factories.CategoryFragmentViewFactory;
+import evos.tightbudget.view.MainScreenView;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -56,36 +56,6 @@ public class MainScreenPresenterTest {
     }
 
 
-    private class MainScreenPresenter {
-        private final MainScreenView mainScreenView;
-        private final TightBudgetModel model;
-        private ArrayList<CategoryFragmentPresenter> categoryPresenters = new ArrayList<>();
-
-        public MainScreenPresenter(MainScreenView mainScreenView, TightBudgetModel model) {
-            this.mainScreenView = mainScreenView;
-            this.model = model;
-
-            for (String name: model.categories.keySet()) {
-                CategoryFragmentPresenter categoryFragmentPresenter = new CategoryFragmentPresenter(CategoryFragmentViewFactory.create(),  model.categories.get(name));
-                this.addCategoryPresenter(categoryFragmentPresenter);
-            }
-        }
-
-        private void addCategoryPresenter(CategoryFragmentPresenter categoryFragmentPresenter) {
-            this.categoryPresenters.add(categoryFragmentPresenter);
-        }
-
-
-        public void bind() {
-
-            for (CategoryFragmentPresenter categoryFragmentPresenter: categoryPresenters) {
-
-                mainScreenView.addCategoryView(categoryFragmentPresenter.getView());
-            }
-        }
-    }
-
-
     class CapturingMainView implements MainScreenView {
 
         List<CategoryFragmentView> categories = new ArrayList<>();
@@ -94,11 +64,6 @@ public class MainScreenPresenterTest {
         public void addCategoryView(CategoryFragmentView categoryFragmentView) {
             categories.add(categoryFragmentView);
         }
-    }
-
-    interface MainScreenView {
-
-        void addCategoryView(CategoryFragmentView categoryFragmentView);
     }
 
 }
