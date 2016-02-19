@@ -22,7 +22,7 @@ public class TightBudgetApplication extends Application{
 
         //TODO: Setup datamodel here
 
-        model = new TightBudgetModel();
+        model = new TightBudgetModel(Amount.fromPence(1000));
 
         Category category1 = new Category("Category 1", Amount.fromPence(500));
         Category category2 = new Category("Category 2", Amount.fromPence(1000));

@@ -11,6 +11,7 @@ import java.util.Map;
  */
 public class TightBudgetModel {
 
+    public Amount budgetAmount;
     public Map<String, BudgetCategory> categories;
 
     public TightBudgetModel() {
@@ -38,6 +39,10 @@ public class TightBudgetModel {
 
         return jsonObject.toString();
 
+    }
+
+    public TightBudgetModel(Amount budgetAmount) {
+        this.budgetAmount = budgetAmount;
     }
 
     public TightBudgetModel fromJson(String json) {

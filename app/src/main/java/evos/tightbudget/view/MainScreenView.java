@@ -6,4 +6,6 @@ package evos.tightbudget.view;
 public interface MainScreenView {
 
     void addCategoryView(CategoryFragmentView categoryFragmentView);
+
+    void setTotalBudgetText(String budgetText);
 }

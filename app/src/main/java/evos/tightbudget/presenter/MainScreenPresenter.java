@@ -28,11 +28,12 @@ public class MainScreenPresenter {
         this.categoryPresenters.add(categoryFragmentPresenter);
     }
 
-
     public void bind() {
 
         for (CategoryFragmentPresenter categoryFragmentPresenter : categoryPresenters) {
             mainScreenView.addCategoryView(categoryFragmentPresenter.getView());
         }
+
+        mainScreenView.setTotalBudgetText(String.valueOf(model.budgetAmount.asPence()));
     }
 }

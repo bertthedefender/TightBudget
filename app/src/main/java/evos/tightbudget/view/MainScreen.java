@@ -26,9 +26,16 @@ public class MainScreen extends Activity implements MainScreenView {
     }
 
     @Override
+    public void setTotalBudgetText(String budgetText) {
+
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_screen);
+
+
 
         presenter = new MainScreenPresenter(this, TightBudgetApplication.model);
         presenter.bind();
