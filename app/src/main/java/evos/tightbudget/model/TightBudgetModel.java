@@ -33,8 +33,6 @@ public class TightBudgetModel {
         for (Map.Entry<String, BudgetCategory> category : categories.entrySet()) {
             jsonObject.put(category.getKey(), new JSONObject(categories.get(category.getKey()).asJson()));
             jsonObject.put(category.getKey(), categories.get(category.getKey()).getOutgoings());
-
-
         }
 
         return jsonObject.toString();
@@ -42,6 +40,7 @@ public class TightBudgetModel {
     }
 
     public TightBudgetModel(Amount budgetAmount) {
+        this();
         this.budgetAmount = budgetAmount;
     }
 

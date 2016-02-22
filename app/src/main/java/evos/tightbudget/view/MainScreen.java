@@ -2,6 +2,7 @@ package evos.tightbudget.view;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -19,6 +20,7 @@ public class MainScreen extends Activity implements MainScreenView {
 
 
     private ArrayList<CategoryFragmentView> categoryViews = new ArrayList<>();
+    private TextView totalBudget;
 
     @Override
     public void addCategoryView(CategoryFragmentView categoryFragmentView) {
@@ -27,7 +29,7 @@ public class MainScreen extends Activity implements MainScreenView {
 
     @Override
     public void setTotalBudgetText(String budgetText) {
-
+        totalBudget.setText(budgetText);
     }
 
     @Override
@@ -35,6 +37,7 @@ public class MainScreen extends Activity implements MainScreenView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_screen);
 
+        totalBudget = (TextView)findViewById(R.id.main_totalBudget);
 
 
         presenter = new MainScreenPresenter(this, TightBudgetApplication.model);

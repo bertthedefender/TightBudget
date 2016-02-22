@@ -22,13 +22,11 @@ import static org.hamcrest.MatcherAssert.assertThat;
  */
 public class MainScreenPresenterTest {
 
-
-
     private TightBudgetModel model;
 
     @Before
     public void setup() {
-        model = new TightBudgetModel();
+        model = new TightBudgetModel(Amount.fromPence(10000));
 
         Category category1 = new Category("Category 1", Amount.fromPence(500));
         Category category2 = new Category("Category 2", Amount.fromPence(1000));
@@ -51,18 +49,25 @@ public class MainScreenPresenterTest {
         MainScreenPresenter presenter = new MainScreenPresenter(capturingMainView, model);
 
         presenter.bind();
-        assertThat(capturingMainView.categories.size(), is (2));
 
+        assertThat(capturingMainView.categories.size(), is (2));
+        assertThat(capturingMainView.capturedBudgetText, is("10000"));
     }
 
 
     class CapturingMainView implements MainScreenView {
 
         List<CategoryFragmentView> categories = new ArrayList<>();
+        public String capturedBudgetText;
 
         @Override
         public void addCategoryView(CategoryFragmentView categoryFragmentView) {
             categories.add(categoryFragmentView);
+        }
+
+        @Override
+        public void setTotalBudgetText(String budgetText) {
+            capturedBudgetText = budgetText;
         }
     }
 
