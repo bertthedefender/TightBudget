@@ -2,6 +2,7 @@ package evos.tightbudget.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,7 @@ import evos.tightbudget.model.Expense;
 /**
  * Created by mcdons20 on 17/02/16.
  */
-public class CategoryFragment extends android.app.Fragment implements CategoryFragmentView {
+public class CategoryFragment extends Fragment implements CategoryFragmentView {
     private TextView categoryNameView;
     private TextView categoryCurrentSpend;
 
@@ -30,6 +31,7 @@ public class CategoryFragment extends android.app.Fragment implements CategoryFr
         this.categoryName = categoryName;
         this.currentSpend = currentSpend;
         this.budgetTotal = budgetTotal;
+
     }
 
     @Override
@@ -45,6 +47,7 @@ public class CategoryFragment extends android.app.Fragment implements CategoryFr
 
         categoryNameView = (TextView)view.findViewById(R.id.category_fragment_name);
         categoryCurrentSpend = (TextView)view.findViewById(R.id.category_fragment_spent);
+
 
         categoryNameView.setText(this.categoryName);
         categoryCurrentSpend.setText(String.valueOf(this.currentSpend.asPence()));

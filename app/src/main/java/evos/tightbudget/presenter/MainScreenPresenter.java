@@ -21,6 +21,7 @@ public class MainScreenPresenter {
         for (String name : model.categories.keySet()) {
             CategoryFragmentPresenter categoryFragmentPresenter = new CategoryFragmentPresenter(CategoryFragmentViewFactory.create(), model.categories.get(name));
             this.addCategoryPresenter(categoryFragmentPresenter);
+            categoryFragmentPresenter.bind();
         }
     }
 
@@ -32,6 +33,8 @@ public class MainScreenPresenter {
 
         for (CategoryFragmentPresenter categoryFragmentPresenter : categoryPresenters) {
             mainScreenView.addCategoryView(categoryFragmentPresenter.getView());
+
+
         }
 
         mainScreenView.setTotalBudgetText(String.valueOf(model.budgetAmount.asPence()));
