@@ -65,7 +65,7 @@ public class CategoryFragmentPresenterTest {
         }
 
         @Override
-        public void setExpenseData(List<Expense> expenseData) {
+        public void setOutgoingExpenseData(List<Expense> expenseData) {
             this.capturedData = expenseData;
         }
 

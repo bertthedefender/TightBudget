@@ -1,5 +1,6 @@
 package evos.tightbudget;
 
+import android.support.v7.widget.RecyclerView;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.TextView;
 
@@ -46,13 +47,14 @@ public class CategoryFragmentTests extends ActivityInstrumentationTestCase2<Test
 
         TextView categoryName = (TextView)categoryFragment.getView().findViewById(R.id.category_fragment_name);
         TextView categoryOutgoing = (TextView)categoryFragment.getView().findViewById(R.id.category_fragment_spent);
+        RecyclerView outgoingsList = (RecyclerView)categoryFragment.getView().findViewById(R.id.category_fragment_outgoings);
 
         String expectedName = EXPECTED_CATEGORY_NAME;
         String expectedOutgoing = String.valueOf(EXPECTED_CURRENT_POSITION.asPence());
 
         assertEquals(expectedName, categoryName.getText());
         assertEquals(expectedOutgoing, categoryOutgoing.getText());
-
+        assertTrue(outgoingsList.getAdapter().getItemCount() == category.getOutgoingCount());
 
     }
 }

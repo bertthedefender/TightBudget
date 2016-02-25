@@ -1,17 +1,17 @@
 package evos.tightbudget;
 
 
-import android.app.Activity;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 
 /**
  * Created by mcdons20 on 16/02/16.
  */
-public class TestFragmentHost extends Activity {
+public class TestFragmentHost extends FragmentActivity {
 
-    public void addFragment(android.app.Fragment fragment) {
+    public void addFragment(Fragment fragment) {
 
-        getFragmentManager().beginTransaction().add(fragment, null).commit();
+        getSupportFragmentManager().beginTransaction().add(fragment, null).commit();
 
     }
 
