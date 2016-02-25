@@ -37,7 +37,7 @@ public class CategoryFragmentPresenterTest {
     }
 
     @Test
-    public void givenACategory_theCategoryFragmentPresenter_CorrectlySetsTheCategoryPositionText()
+    public void givenACategory_theCategoryFragmentPresenter_CorrectlySetsTheCategoryFinancialPositionText()
     {
         CategoryFragmentPresenter categoryFragmentPresenter = new CategoryFragmentPresenter(capturingCategoryFragment, category);
 

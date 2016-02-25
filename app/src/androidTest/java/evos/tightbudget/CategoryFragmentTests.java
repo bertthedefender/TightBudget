@@ -37,7 +37,7 @@ public class CategoryFragmentTests extends ActivityInstrumentationTestCase2<Test
 
         CategoryFragment categoryFragment = new CategoryFragment();
 
-        CategoryFragmentPresenter presenter = new CategoryFragmentPresenter(categoryFragment, category );
+        CategoryFragmentPresenter presenter = new CategoryFragmentPresenter(categoryFragment, category);
 
         getActivity().addFragment(categoryFragment);
 
@@ -57,4 +57,5 @@ public class CategoryFragmentTests extends ActivityInstrumentationTestCase2<Test
         assertTrue(outgoingsList.getAdapter().getItemCount() == category.getOutgoingCount());
 
     }
+
 }

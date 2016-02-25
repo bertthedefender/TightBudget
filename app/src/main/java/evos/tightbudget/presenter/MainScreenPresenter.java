@@ -1,5 +1,7 @@
 package evos.tightbudget.presenter;
 
+import android.view.ViewGroup;
+
 import java.util.ArrayList;
 
 import evos.tightbudget.model.TightBudgetModel;
@@ -31,12 +33,11 @@ public class MainScreenPresenter {
 
     public void bind() {
 
-        for (CategoryFragmentPresenter categoryFragmentPresenter : categoryPresenters) {
-            mainScreenView.addCategoryView(categoryFragmentPresenter.getView());
-
-
+        for (CategoryFragmentPresenter categoryFragmentPresenter:categoryPresenters) {
+                mainScreenView.addCategoryView(categoryFragmentPresenter.getView());
         }
 
         mainScreenView.setTotalBudgetText(String.valueOf(model.budgetAmount.asPence()));
+
     }
 }

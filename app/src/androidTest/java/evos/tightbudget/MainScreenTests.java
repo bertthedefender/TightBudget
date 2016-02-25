@@ -1,7 +1,8 @@
 package evos.tightbudget;
 
-import android.app.Application;
-import android.content.Intent;
+import android.test.ActivityInstrumentationTestCase2;
+import android.view.ViewGroup;
+
 
 import evos.tightbudget.model.Amount;
 import evos.tightbudget.model.Category;
@@ -12,20 +13,14 @@ import evos.tightbudget.model.Utils;
 import evos.tightbudget.view.MainScreen;
 
 /**
- * Created by mcdons20 on 18/02/16.
+ * Created by S on 22/02/2016.
  */
-public class TightBudgetApplication extends Application{
+public class MainScreenTests extends ActivityInstrumentationTestCase2<MainScreen> {
 
-    public static TightBudgetModel model = new TightBudgetModel(Amount.fromPence(1000));
+    public MainScreenTests() {
+        super(MainScreen.class);
 
-
-    @Override
-    public void onCreate() {
-                super.onCreate();
-
-
-        //TODO: Setup datamodel here
-
+        TightBudgetModel model = new TightBudgetModel(Amount.fromPence(1000));
 
         Category category1 = new Category("Category 1", Amount.fromPence(500));
         Category category2 = new Category("Category 2", Amount.fromPence(1000));
@@ -41,4 +36,16 @@ public class TightBudgetApplication extends Application{
         DataPump.setModel(model);
 
     }
+
+    public void test_whenTheScreenIsBound_itHasTheCorrectNumberOfCategoryFragmentsSet()  {
+
+        getInstrumentation().waitForIdleSync();
+
+        MainScreen mainScreen = getActivity();
+
+
+        assertEquals(((ViewGroup) mainScreen.findViewById(R.id.main_categoryContainer)).getChildCount(),2);
+    }
+
+
 }
