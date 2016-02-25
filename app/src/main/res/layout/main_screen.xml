@@ -11,4 +11,13 @@
               android:layout_height="wrap_content"
               android:id="@+id/main_totalBudget" />
 
+
+    <LinearLayout
+        android:id="@+id/main_categoryContainer"
+        android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    </LinearLayout>
+
 </LinearLayout>

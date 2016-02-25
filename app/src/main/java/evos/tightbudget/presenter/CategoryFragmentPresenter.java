@@ -18,7 +18,7 @@ public class CategoryFragmentPresenter  {
 
     public void bind() {
         categoryFragmentView.setCurrentPosition(category.getName(), category.getTotalSpend(), category.getBudget());
-        categoryFragmentView.setExpenseData(category.getOutgoings());
+        categoryFragmentView.setOutgoingExpenseData(category.getOutgoings());
     }
 
     public CategoryFragmentView getView() {

@@ -2,6 +2,9 @@ package evos.tightbudget.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,13 +19,72 @@ import evos.tightbudget.model.Expense;
 /**
  * Created by mcdons20 on 17/02/16.
  */
-public class CategoryFragment extends android.app.Fragment implements CategoryFragmentView {
+
+public class CategoryFragment extends Fragment implements CategoryFragmentView {
+    private class OutgoingsAdapter extends RecyclerView.Adapter {
+        private List<Expense> outgoings;
+
+        public OutgoingsAdapter(List<Expense> outgoings) {
+            this.outgoings = outgoings;
+        }
+
+        @Override
+        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = getLayoutInflater(null).inflate(R.layout.category_fragment_listitem,null);
+            return new OutgoingsViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+
+            Expense expense = outgoings.get(position);
+            OutgoingsViewHolder view = (OutgoingsViewHolder)holder;
+            view.setAmount(String.format("%d",expense.getAmount().asPence()));
+            view.setDate(expense.getDate().toString());
+            view.setDescription(expense.getDescription());
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return outgoings.size();
+        }
+    }
+
+    private class OutgoingsViewHolder extends RecyclerView.ViewHolder {
+
+        private  TextView description;
+        private  TextView amount;
+        private  TextView date;
+
+        public OutgoingsViewHolder(View itemView) {
+            super(itemView);
+            description = (TextView)itemView.findViewById(R.id.category_fragment_item_description);
+            amount = (TextView)itemView.findViewById(R.id.category_fragment_item_description);
+            date = (TextView)itemView.findViewById(R.id.category_fragment_item_date);
+        }
+
+        public void setDescription(String description) {
+            this.description.setText(description);
+        }
+
+        public void setAmount(String amount) {
+            this.description.setText(amount);
+        }
+
+        public void setDate(String date) {
+            this.date.setText(date);
+        }
+    }
+
     private TextView categoryNameView;
     private TextView categoryCurrentSpend;
 
     private Amount currentSpend;
     private Amount budgetTotal;
     private String categoryName;
+    private List<Expense> outgoings;
+    private RecyclerView outgoingsRecyclerView;
 
     @Override
     public void setCurrentPosition(String categoryName, Amount currentSpend, Amount budgetTotal) {
@@ -30,11 +92,12 @@ public class CategoryFragment extends android.app.Fragment implements CategoryFr
         this.categoryName = categoryName;
         this.currentSpend = currentSpend;
         this.budgetTotal = budgetTotal;
+
     }
 
     @Override
-    public void setExpenseData(List<Expense> adapter) {
-
+    public void setOutgoingExpenseData(List<Expense> expenseList) {
+        this.outgoings = expenseList;
     }
 
     @Nullable
@@ -45,9 +108,13 @@ public class CategoryFragment extends android.app.Fragment implements CategoryFr
 
         categoryNameView = (TextView)view.findViewById(R.id.category_fragment_name);
         categoryCurrentSpend = (TextView)view.findViewById(R.id.category_fragment_spent);
+        outgoingsRecyclerView = (RecyclerView)view.findViewById(R.id.category_fragment_outgoings);
 
         categoryNameView.setText(this.categoryName);
         categoryCurrentSpend.setText(String.valueOf(this.currentSpend.asPence()));
+
+        outgoingsRecyclerView.setAdapter(new OutgoingsAdapter(outgoings));
+        outgoingsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         return view;
     }
