@@ -36,7 +36,7 @@ public class TightBudgetApplication extends Application{
         category2.addOutgoing(new OutgoingExpense("Expense 2_2", Utils.getDate(2001, 01, 21), Amount.fromPence(30)));
 
         model.addCategory(category1);
-        model.addCategory(category2);
+       model.addCategory(category2);
 
         DataPump.setModel(model);
 

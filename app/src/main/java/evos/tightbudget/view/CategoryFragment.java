@@ -104,7 +104,7 @@ public class CategoryFragment extends Fragment implements CategoryFragmentView {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.category_fragment, null);
+        View view = inflater.inflate(R.layout.category_fragment, container, false);
 
         categoryNameView = (TextView)view.findViewById(R.id.category_fragment_name);
         categoryCurrentSpend = (TextView)view.findViewById(R.id.category_fragment_spent);
