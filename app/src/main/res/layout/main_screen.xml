@@ -15,18 +15,11 @@
               android:id="@+id/main_totalBudget" />
 
 
-    <LinearLayout
-        android:id="@+id/main_categoryContainer"
-        android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    </LinearLayout>
-
-
     <android.support.v4.view.ViewPager
+
+        android:background="#0ff"
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-                                       android:layout_height="match_parent"></android.support.v4.view.ViewPager>
+        android:layout_height="match_parent"></android.support.v4.view.ViewPager>
 
 </LinearLayout>

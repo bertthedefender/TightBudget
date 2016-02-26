@@ -53,7 +53,7 @@ public class MainScreen extends FragmentActivity implements MainScreenView {
         setContentView(R.layout.main_screen);
 
         totalBudget = (TextView)findViewById(R.id.main_totalBudget);
-        categoryContainer = (LinearLayout)findViewById(R.id.main_categoryContainer);
+      //  categoryContainer = (LinearLayout)findViewById(R.id.main_categoryContainer);
         viewPager = (ViewPager)findViewById(R.id.viewPager);
 
 
@@ -69,10 +69,6 @@ public class MainScreen extends FragmentActivity implements MainScreenView {
         public CategoryPagerAdapter(FragmentManager fm, ArrayList<CategoryFragment> categoryFragments) {
             super(fm);
             this.categoryFragments = categoryFragments;
-        }
-
-        public void addFragment(CategoryFragment categoryFragment) {
-            categoryFragments.add(categoryFragment);
         }
 
         @Override
