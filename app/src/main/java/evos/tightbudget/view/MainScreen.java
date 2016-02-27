@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import evos.tightbudget.R;
 import evos.tightbudget.TightBudgetApplication;
@@ -23,17 +24,17 @@ public class MainScreen extends FragmentActivity implements MainScreenView {
 
     MainScreenPresenter presenter;
 
-
     private ArrayList<CategoryFragment> categoryViews = new ArrayList<>();
     private TextView totalBudget;
-    private LinearLayout categoryContainer;
     private ViewPager viewPager;
     private CategoryPagerAdapter categoryPagerAdapter;
+    private List<CategoryFragmentView> categoryFragmentViews;
 
     @Override
-    public void addCategoryView(CategoryFragmentView categoryFragmentView) {
-        categoryViews.add((CategoryFragment)categoryFragmentView);
-      // getSupportFragmentManager().beginTransaction().add(R.id.main_categoryContainer,(CategoryFragment)categoryFragmentView,null).commit();
+    public void setCategoryViews(List<CategoryFragmentView> categoryFragmentViews) {
+        this.categoryFragmentViews = categoryFragmentViews;
+        categoryPagerAdapter = new CategoryPagerAdapter(getSupportFragmentManager(), categoryFragmentViews);
+        viewPager.setAdapter(categoryPagerAdapter);
     }
 
     @Override
@@ -42,20 +43,12 @@ public class MainScreen extends FragmentActivity implements MainScreenView {
     }
 
     @Override
-    public void refresh() {
-        categoryPagerAdapter = new CategoryPagerAdapter(getSupportFragmentManager(), categoryViews);
-        viewPager.setAdapter(categoryPagerAdapter);
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_screen);
 
         totalBudget = (TextView)findViewById(R.id.main_totalBudget);
-      //  categoryContainer = (LinearLayout)findViewById(R.id.main_categoryContainer);
         viewPager = (ViewPager)findViewById(R.id.viewPager);
-
 
         presenter = new MainScreenPresenter(this, TightBudgetApplication.model);
         presenter.bind();
@@ -64,16 +57,16 @@ public class MainScreen extends FragmentActivity implements MainScreenView {
 
     private class CategoryPagerAdapter extends FragmentStatePagerAdapter {
 
-        private ArrayList<CategoryFragment> categoryFragments;
+        private List<CategoryFragmentView> categoryFragments;
 
-        public CategoryPagerAdapter(FragmentManager fm, ArrayList<CategoryFragment> categoryFragments) {
+        public CategoryPagerAdapter(FragmentManager fm, List<CategoryFragmentView> categoryFragments) {
             super(fm);
             this.categoryFragments = categoryFragments;
         }
 
         @Override
         public Fragment getItem(int position) {
-            return categoryFragments.get(position);
+            return (CategoryFragment)categoryFragments.get(position);
         }
 
         @Override

@@ -1,8 +1,10 @@
 package evos.tightbudget.presenter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import evos.tightbudget.model.TightBudgetModel;
+import evos.tightbudget.view.CategoryFragmentView;
 import evos.tightbudget.view.MainScreenView;
 import evos.tightbudget.view.factories.CategoryFragmentViewFactory;
 
@@ -31,12 +33,15 @@ public class MainScreenPresenter {
 
     public void bind() {
 
+        List<CategoryFragmentView> categoryViews = new ArrayList<>();
+
         for (CategoryFragmentPresenter categoryFragmentPresenter:categoryPresenters) {
-                mainScreenView.addCategoryView(categoryFragmentPresenter.getView());
+            categoryViews.add(categoryFragmentPresenter.getView());
         }
 
+        mainScreenView.setCategoryViews(categoryViews);
+
         mainScreenView.setTotalBudgetText(String.valueOf(model.budgetAmount.asPence()));
-        mainScreenView.refresh();
 
     }
 }
