@@ -1,21 +1,27 @@
 package evos.tightbudget;
 
+import android.support.design.widget.FloatingActionButton;
 import android.test.ActivityInstrumentationTestCase2;
-import android.view.ViewGroup;
 
+
+import com.robotium.solo.Solo;
 
 import evos.tightbudget.model.Amount;
+import evos.tightbudget.model.BudgetCategory;
 import evos.tightbudget.model.Category;
 import evos.tightbudget.model.DataPump;
 import evos.tightbudget.model.OutgoingExpense;
 import evos.tightbudget.model.TightBudgetModel;
 import evos.tightbudget.model.Utils;
 import evos.tightbudget.view.MainScreen;
+import evos.tightbudget.view.MainScreenView;
 
 /**
  * Created by S on 22/02/2016.
  */
 public class MainScreenTests extends ActivityInstrumentationTestCase2<MainScreen> {
+
+    Solo solo;
 
     public MainScreenTests() {
         super(MainScreen.class);
@@ -37,15 +43,43 @@ public class MainScreenTests extends ActivityInstrumentationTestCase2<MainScreen
 
     }
 
-    public void test_whenTheScreenIsBound_itHasTheCorrectNumberOfCategoryFragmentsSet()  {
 
-        getInstrumentation().waitForIdleSync();
+    public void test_whenTheUserClicksTheAddNewOutgoingButton_theCallbacksAreNotified() {
 
-        MainScreen mainScreen = getActivity();
+        TightBudgetModel model = DataPump.model();
+        final int[] capturedIndex = new int[1];
 
+        MainScreen mainScreen = (MainScreen)getActivity();
 
-        assertEquals(((ViewGroup) mainScreen.findViewById(R.id.main_categoryContainer)).getChildCount(),2);
+        mainScreen.addCallback(new MainScreenView.Callback() {
+            @Override
+            public void addNewOutgoing(int selectedIndex) {
+                capturedIndex[0] = selectedIndex;
+            }
+        });
+
+        solo = new Solo(getInstrumentation(),mainScreen);
+
+        solo.scrollViewToSide(getActivity().findViewById(R.id.main_viewPager), Solo.RIGHT);
+
+        FloatingActionButton fabAdd = (FloatingActionButton)getActivity().findViewById(R.id.main_addNewOutgoing);
+        fabAdd.callOnClick();
+
+        assertEquals(model.getCategory(capturedIndex), capturedCategory[0]);
+
     }
+
+
+
+//    public void test_whenTheScreenIsBound_itHasTheCorrectNumberOfCategoryFragmentsSet()  {
+//
+//        getInstrumentation().waitForIdleSync();
+//
+//        MainScreen mainScreen = getActivity();
+//
+//
+//        assertEquals(((ViewGroup) mainScreen.findViewById(R.id.main_categoryContainer)).getChildCount(),2);
+//    }
 
 
 }

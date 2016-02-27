@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import evos.tightbudget.model.Amount;
+import evos.tightbudget.model.BudgetCategory;
 import evos.tightbudget.model.Category;
 import evos.tightbudget.model.OutgoingExpense;
 import evos.tightbudget.model.TightBudgetModel;
@@ -50,24 +51,44 @@ public class MainScreenPresenterTest {
 
         presenter.bind();
 
-        assertThat(capturingMainView.categories.size(), is (2));
+        assertThat(capturingMainView.categories.size(), is(2));
         assertThat(capturingMainView.capturedBudgetText, is("10000"));
     }
 
+    @Test
+    public void whenTheViewFiresTheAddNewOutgoingEvent_thePresenterIsNotified() {
+        CapturingMainView fakeMainView = new CapturingMainView();
+        MainScreenPresenter presenter = new MainScreenPresenter(fakeMainView, model);
+        fakeMainView.callback.addNewOutgoing(model.getCategory("Category 1"));
+        assertThat(fakeMainView.showAddDialogCalled, is(true));
+    }
 
     class CapturingMainView implements MainScreenView {
 
         List<CategoryFragmentView> categories = new ArrayList<>();
         public String capturedBudgetText;
+        public Callback callback;
+        public boolean showAddDialogCalled = false;
+
 
         @Override
-        public void addCategoryView(CategoryFragmentView categoryFragmentView) {
-            categories.add(categoryFragmentView);
+        public void setCategoryViews(List<CategoryFragmentView> categoryFragmentViews) {
+            categories = categoryFragmentViews;
         }
 
         @Override
         public void setTotalBudgetText(String budgetText) {
             capturedBudgetText = budgetText;
+        }
+
+        @Override
+        public void addCallback(Callback callback) {
+            this.callback = callback;
+        }
+
+        @Override
+        public void showNewOutgoingDialog(BudgetCategory category) {
+            showAddDialogCalled = true;
         }
     }
 
