@@ -1,18 +1,24 @@
 package evos.tightbudget.view;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.widget.LinearLayout;
+import android.telecom.Call;
+import android.view.View;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import evos.tightbudget.R;
 import evos.tightbudget.TightBudgetApplication;
+import evos.tightbudget.model.Amount;
+import evos.tightbudget.model.BudgetCategory;
+import evos.tightbudget.model.Category;
 import evos.tightbudget.presenter.MainScreenPresenter;
 
 
@@ -25,14 +31,20 @@ public class MainScreen extends FragmentActivity implements MainScreenView {
 
 
     private ArrayList<CategoryFragment> categoryViews = new ArrayList<>();
+
+    private FloatingActionButton addNewOutgoing;
     private TextView totalBudget;
-    private LinearLayout categoryContainer;
     private ViewPager viewPager;
     private CategoryPagerAdapter categoryPagerAdapter;
+    private List<CategoryFragmentView> categoryFragmentViews;
+    private List<Callback> callbacks = new ArrayList<>();
+
 
     @Override
-    public void addCategoryView(CategoryFragmentView categoryFragmentView) {
-        categoryViews.add((CategoryFragment)categoryFragmentView);
+    public void setCategoryViews(List<CategoryFragmentView> categoryFragmentViews) {
+        this.categoryFragmentViews = categoryFragmentViews;
+        categoryPagerAdapter = new CategoryPagerAdapter(getSupportFragmentManager(), categoryFragmentViews);
+        viewPager.setAdapter(categoryPagerAdapter);
     }
 
     @Override
@@ -41,37 +53,60 @@ public class MainScreen extends FragmentActivity implements MainScreenView {
     }
 
     @Override
-    public void refresh() {
-        categoryPagerAdapter = new CategoryPagerAdapter(getSupportFragmentManager(), categoryViews);
-        viewPager.setAdapter(categoryPagerAdapter);
+    public void addCallback(Callback callback) {
+        callbacks.add(callback);
     }
+
+    @Override
+    public void showNewOutgoingDialog(String category) {
+
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_screen);
 
+        addNewOutgoing = (FloatingActionButton)findViewById(R.id.main_addNewOutgoing);
         totalBudget = (TextView)findViewById(R.id.main_totalBudget);
         viewPager = (ViewPager)findViewById(R.id.viewPager);
 
 
         presenter = new MainScreenPresenter(this, TightBudgetApplication.model);
         presenter.bind();
+
+        addNewOutgoing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                CategoryPagerAdapter adapter = (CategoryPagerAdapter)viewPager.getAdapter();
+                CategoryFragment selectedFragment = (CategoryFragment)adapter.categoryFragments.get(viewPager.getCurrentItem());
+                String selectedCategory = ((TextView)selectedFragment.getActivity().findViewById(R.id.category_fragment_name)).getText().toString();
+
+
+                for (Callback callback:callbacks) {
+                    callback.addNewOutgoing(selectedCategory);
+                }
+            }
+        });
     }
 
 
     private class CategoryPagerAdapter extends FragmentStatePagerAdapter {
 
-        private ArrayList<CategoryFragment> categoryFragments;
+        private List<CategoryFragmentView> categoryFragments;
+        private int lastPosition;
 
-        public CategoryPagerAdapter(FragmentManager fm, ArrayList<CategoryFragment> categoryFragments) {
+        public CategoryPagerAdapter(FragmentManager fm, List<CategoryFragmentView> categoryFragments) {
             super(fm);
             this.categoryFragments = categoryFragments;
         }
 
         @Override
         public Fragment getItem(int position) {
-            return categoryFragments.get(position);
+            lastPosition = position;
+            return (CategoryFragment)categoryFragments.get(position);
         }
 
         @Override

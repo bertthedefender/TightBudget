@@ -47,4 +47,5 @@ public class TightBudgetModel {
     public TightBudgetModel fromJson(String json) {
         return new TightBudgetModel();
     }
+
 }
