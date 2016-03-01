@@ -33,7 +33,6 @@ public class MainScreen extends FragmentActivity implements MainScreenView {
     @Override
     public void addCategoryView(CategoryFragmentView categoryFragmentView) {
         categoryViews.add((CategoryFragment)categoryFragmentView);
-      // getSupportFragmentManager().beginTransaction().add(R.id.main_categoryContainer,(CategoryFragment)categoryFragmentView,null).commit();
     }
 
     @Override
@@ -53,7 +52,6 @@ public class MainScreen extends FragmentActivity implements MainScreenView {
         setContentView(R.layout.main_screen);
 
         totalBudget = (TextView)findViewById(R.id.main_totalBudget);
-      //  categoryContainer = (LinearLayout)findViewById(R.id.main_categoryContainer);
         viewPager = (ViewPager)findViewById(R.id.viewPager);
 
 
