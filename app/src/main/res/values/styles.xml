@@ -43,7 +43,7 @@
     </style>
 
     <style name="category_listitem_small" parent="@android:style/TextAppearance.Medium">
-        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:background">@color/application_background</item>
@@ -62,6 +62,12 @@
         <item name="android:gravity">center</item>
         <item name="android:textSize">30dp</item>
         <item name="android:padding">5dp</item>
+    </style>
+
+    <style name="main_viewpager_dark">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">#116</item>
     </style>
 
 </resources>

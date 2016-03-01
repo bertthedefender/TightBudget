@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import evos.tightbudget.R;
@@ -39,8 +41,9 @@ public class CategoryFragment extends Fragment implements CategoryFragmentView {
 
             Expense expense = outgoings.get(position);
             OutgoingsViewHolder view = (OutgoingsViewHolder)holder;
-            view.setAmount(String.format("%d",expense.getAmount().asPence()));
-            view.setDate(expense.getDate().toString());
+            view.setAmount("" + expense.getAmount().asPence());
+
+            view.setDate( new SimpleDateFormat("d MMM").format(expense.getDate()));
             view.setDescription(expense.getDescription());
 
         }
@@ -60,7 +63,7 @@ public class CategoryFragment extends Fragment implements CategoryFragmentView {
         public OutgoingsViewHolder(View itemView) {
             super(itemView);
             description = (TextView)itemView.findViewById(R.id.category_fragment_item_description);
-            amount = (TextView)itemView.findViewById(R.id.category_fragment_item_description);
+            amount = (TextView)itemView.findViewById(R.id.category_fragment_item_amount);
             date = (TextView)itemView.findViewById(R.id.category_fragment_item_date);
         }
 
@@ -69,7 +72,7 @@ public class CategoryFragment extends Fragment implements CategoryFragmentView {
         }
 
         public void setAmount(String amount) {
-            this.description.setText(amount);
+            this.amount.setText(amount);
         }
 
         public void setDate(String date) {

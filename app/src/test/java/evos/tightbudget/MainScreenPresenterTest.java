@@ -59,7 +59,7 @@ public class MainScreenPresenterTest {
     public void whenTheViewFiresTheAddNewOutgoingEvent_thePresenterIsNotified() {
         CapturingMainView fakeMainView = new CapturingMainView();
         MainScreenPresenter presenter = new MainScreenPresenter(fakeMainView, model);
-        fakeMainView.callback.addNewOutgoing(model.getCategory("Category 1"));
+        fakeMainView.callback.addNewOutgoing("Category 1");
         assertThat(fakeMainView.showAddDialogCalled, is(true));
     }
 
@@ -87,9 +87,11 @@ public class MainScreenPresenterTest {
         }
 
         @Override
-        public void showNewOutgoingDialog(BudgetCategory category) {
+        public void showNewOutgoingDialog(String category) {
             showAddDialogCalled = true;
         }
+
+
     }
 
 }

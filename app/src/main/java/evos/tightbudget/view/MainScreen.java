@@ -36,13 +36,11 @@ public class MainScreen extends FragmentActivity implements MainScreenView {
     private TextView totalBudget;
     private ViewPager viewPager;
     private CategoryPagerAdapter categoryPagerAdapter;
-    private List<CategoryFragmentView> categoryFragmentViews;
     private List<Callback> callbacks = new ArrayList<>();
 
 
     @Override
     public void setCategoryViews(List<CategoryFragmentView> categoryFragmentViews) {
-        this.categoryFragmentViews = categoryFragmentViews;
         categoryPagerAdapter = new CategoryPagerAdapter(getSupportFragmentManager(), categoryFragmentViews);
         viewPager.setAdapter(categoryPagerAdapter);
     }
@@ -70,8 +68,7 @@ public class MainScreen extends FragmentActivity implements MainScreenView {
 
         addNewOutgoing = (FloatingActionButton)findViewById(R.id.main_addNewOutgoing);
         totalBudget = (TextView)findViewById(R.id.main_totalBudget);
-        viewPager = (ViewPager)findViewById(R.id.viewPager);
-
+        viewPager = (ViewPager)findViewById(R.id.main_viewPager);
 
         presenter = new MainScreenPresenter(this, TightBudgetApplication.model);
         presenter.bind();
@@ -83,7 +80,6 @@ public class MainScreen extends FragmentActivity implements MainScreenView {
                 CategoryPagerAdapter adapter = (CategoryPagerAdapter)viewPager.getAdapter();
                 CategoryFragment selectedFragment = (CategoryFragment)adapter.categoryFragments.get(viewPager.getCurrentItem());
                 String selectedCategory = ((TextView)selectedFragment.getActivity().findViewById(R.id.category_fragment_name)).getText().toString();
-
 
                 for (Callback callback:callbacks) {
                     callback.addNewOutgoing(selectedCategory);

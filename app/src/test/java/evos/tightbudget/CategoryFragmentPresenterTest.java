@@ -47,6 +47,7 @@ public class CategoryFragmentPresenterTest {
         assertThat(capturingCategoryFragment.currentSpend.asPence(), is(EXPECTED_CURRENT_POSITION.asPence()));
         assertThat(capturingCategoryFragment.budgetTotal.asPence(), is(EXPECTED_BUDGET_AMOUNT.asPence()));
         assertThat(capturingCategoryFragment.capturedData.size(), is(1));
+        assertThat(capturingCategoryFragment.capturedData.get(0).getDate(), is(TestHelpers.anyDate));
     }
 
     private class CapturingCategoryFragment implements CategoryFragmentView {

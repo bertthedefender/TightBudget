@@ -17,7 +17,8 @@
 
     <android.support.v7.widget.RecyclerView android:id="@+id/category_fragment_outgoings"
                                             android:layout_width="match_parent"
-                                            android:layout_height="wrap_content">
+                                            android:layout_height="wrap_content"
+        android:background="#AA0">
     </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>
