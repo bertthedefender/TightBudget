@@ -29,6 +29,7 @@ public class MainScreen extends FragmentActivity implements MainScreenView {
 
     MainScreenPresenter presenter;
 
+
     private ArrayList<CategoryFragment> categoryViews = new ArrayList<>();
 
     private FloatingActionButton addNewOutgoing;
@@ -69,7 +70,7 @@ public class MainScreen extends FragmentActivity implements MainScreenView {
 
         addNewOutgoing = (FloatingActionButton)findViewById(R.id.main_addNewOutgoing);
         totalBudget = (TextView)findViewById(R.id.main_totalBudget);
-        viewPager = (ViewPager)findViewById(R.id.main_viewPager);
+        viewPager = (ViewPager)findViewById(R.id.viewPager);
 
 
         presenter = new MainScreenPresenter(this, TightBudgetApplication.model);
