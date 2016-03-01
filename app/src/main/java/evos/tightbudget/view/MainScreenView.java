@@ -13,9 +13,9 @@ public interface MainScreenView {
 
     void addCallback(Callback callback);
 
-    void showNewOutgoingDialog(BudgetCategory category);
+    void showNewOutgoingDialog(String category);
 
     interface Callback {
-        void addNewOutgoing(int selectedIndex);
+        void addNewOutgoing(String selectedCategory);
     }
 }

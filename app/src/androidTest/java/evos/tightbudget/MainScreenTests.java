@@ -7,7 +7,6 @@ import android.test.ActivityInstrumentationTestCase2;
 import com.robotium.solo.Solo;
 
 import evos.tightbudget.model.Amount;
-import evos.tightbudget.model.BudgetCategory;
 import evos.tightbudget.model.Category;
 import evos.tightbudget.model.DataPump;
 import evos.tightbudget.model.OutgoingExpense;
@@ -44,28 +43,34 @@ public class MainScreenTests extends ActivityInstrumentationTestCase2<MainScreen
     }
 
 
-    public void test_whenTheUserClicksTheAddNewOutgoingButton_theCallbacksAreNotified() {
+    public void test_whenTheUserClicksTheAddNewOutgoingButton_theCallbacksAreNotified() throws Throwable {
 
-        TightBudgetModel model = DataPump.model();
-        final int[] capturedIndex = new int[1];
+        final TightBudgetModel model = DataPump.model();
+        final String[] capturedIndex = new String[1];
 
-        MainScreen mainScreen = (MainScreen)getActivity();
+        final MainScreen mainScreen = (MainScreen)getActivity();
 
         mainScreen.addCallback(new MainScreenView.Callback() {
             @Override
-            public void addNewOutgoing(int selectedIndex) {
-                capturedIndex[0] = selectedIndex;
+            public void addNewOutgoing(String selectedCategory) {
+                capturedIndex[0] = selectedCategory;
             }
         });
 
-        solo = new Solo(getInstrumentation(),mainScreen);
 
-        solo.scrollViewToSide(getActivity().findViewById(R.id.main_viewPager), Solo.RIGHT);
+        runTestOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                solo = new Solo(getInstrumentation(),mainScreen);
+                solo.scrollViewToSide(getActivity().findViewById(R.id.main_viewPager), Solo.LEFT,0.9f);
 
-        FloatingActionButton fabAdd = (FloatingActionButton)getActivity().findViewById(R.id.main_addNewOutgoing);
-        fabAdd.callOnClick();
+                FloatingActionButton fabAdd = (FloatingActionButton)getActivity().findViewById(R.id.main_addNewOutgoing);
+                fabAdd.callOnClick();
 
-        assertEquals(model.getCategory(capturedIndex), capturedCategory[0]);
+                assertEquals(model.getCategory("Category 1"), model.getCategory(capturedIndex[0]));
+            }
+        });
+
 
     }
 

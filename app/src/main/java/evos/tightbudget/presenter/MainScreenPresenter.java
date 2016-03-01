@@ -22,8 +22,8 @@ public class MainScreenPresenter {
 
         mainScreenView.addCallback(new MainScreenView.Callback() {
             @Override
-            public void addNewOutgoing(int selectedIndex) {
-                mainScreenView.showNewOutgoingDialog(category);
+            public void addNewOutgoing(String selectedCategory) {
+                mainScreenView.showNewOutgoingDialog(selectedCategory);
             }
         });
 

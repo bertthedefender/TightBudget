@@ -48,7 +48,4 @@ public class TightBudgetModel {
         return new TightBudgetModel();
     }
 
-    public Category getCategory(int index) {
-        return categories.g
-    }
 }

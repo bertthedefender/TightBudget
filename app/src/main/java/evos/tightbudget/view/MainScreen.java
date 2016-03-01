@@ -57,9 +57,10 @@ public class MainScreen extends FragmentActivity implements MainScreenView {
     }
 
     @Override
-    public void showNewOutgoingDialog(BudgetCategory category) {
+    public void showNewOutgoingDialog(String category) {
 
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +71,6 @@ public class MainScreen extends FragmentActivity implements MainScreenView {
         totalBudget = (TextView)findViewById(R.id.main_totalBudget);
         viewPager = (ViewPager)findViewById(R.id.main_viewPager);
 
-        viewPager.setOn
 
         presenter = new MainScreenPresenter(this, TightBudgetApplication.model);
         presenter.bind();
@@ -80,10 +80,12 @@ public class MainScreen extends FragmentActivity implements MainScreenView {
             public void onClick(View v) {
 
                 CategoryPagerAdapter adapter = (CategoryPagerAdapter)viewPager.getAdapter();
-                Category = adapter.categoryFragments.get(
+                CategoryFragment selectedFragment = (CategoryFragment)adapter.categoryFragments.get(viewPager.getCurrentItem());
+                String selectedCategory = ((TextView)selectedFragment.getActivity().findViewById(R.id.category_fragment_name)).getText().toString();
+
 
                 for (Callback callback:callbacks) {
-                    callback.addNewOutgoing();
+                    callback.addNewOutgoing(selectedCategory);
                 }
             }
         });
