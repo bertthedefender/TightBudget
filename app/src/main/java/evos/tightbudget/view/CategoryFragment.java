@@ -23,6 +23,8 @@ import evos.tightbudget.model.Expense;
  */
 
 public class CategoryFragment extends Fragment implements CategoryFragmentView {
+
+
     private class OutgoingsAdapter extends RecyclerView.Adapter {
         private List<Expense> outgoings;
 
@@ -32,7 +34,7 @@ public class CategoryFragment extends Fragment implements CategoryFragmentView {
 
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = getLayoutInflater(null).inflate(R.layout.category_fragment_listitem,null);
+            View view = getLayoutInflater(null).inflate(R.layout.category_fragment_listitem,parent,false);
             return new OutgoingsViewHolder(view);
         }
 
@@ -82,6 +84,7 @@ public class CategoryFragment extends Fragment implements CategoryFragmentView {
 
     private TextView categoryNameView;
     private TextView categoryCurrentSpend;
+    private TextView categoryBudget;
 
     private Amount currentSpend;
     private Amount budgetTotal;
@@ -91,11 +94,9 @@ public class CategoryFragment extends Fragment implements CategoryFragmentView {
 
     @Override
     public void setCurrentPosition(String categoryName, Amount currentSpend, Amount budgetTotal) {
-
         this.categoryName = categoryName;
         this.currentSpend = currentSpend;
         this.budgetTotal = budgetTotal;
-
     }
 
     @Override
@@ -111,10 +112,12 @@ public class CategoryFragment extends Fragment implements CategoryFragmentView {
 
         categoryNameView = (TextView)view.findViewById(R.id.category_fragment_name);
         categoryCurrentSpend = (TextView)view.findViewById(R.id.category_fragment_spent);
+        categoryBudget = (TextView)view.findViewById(R.id.category_fragment_budget);
         outgoingsRecyclerView = (RecyclerView)view.findViewById(R.id.category_fragment_outgoings);
 
         categoryNameView.setText(this.categoryName);
         categoryCurrentSpend.setText(String.valueOf(this.currentSpend.asPence()));
+        categoryBudget.setText(String.valueOf(this.budgetTotal.asPence()));
 
         outgoingsRecyclerView.setAdapter(new OutgoingsAdapter(outgoings));
         outgoingsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#F00">
+    style="@style/category_listitem">
 
     <FrameLayout android:layout_width="match_parent"
                  android:layout_height="wrap_content">
@@ -26,11 +26,13 @@
     </FrameLayout>
 
     <TextView android:id="@+id/category_fragment_item_amount"
-                style="@style/category_listitem_large"
-              android:gravity="right"
-        tools:text="75.00"
+        style="@style/category_listitem_large"
+                  android:gravity="right"
+            tools:text="75.00"
     />
 
-    <ImageView android:layout_width="match_parent" android:layout_height="2dp" android:background="@color/category_listitem_separator"/>
+    <include
+        layout="@layout/linebreak"
+        />
 
 </LinearLayout>

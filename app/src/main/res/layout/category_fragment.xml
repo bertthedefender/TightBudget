@@ -7,18 +7,44 @@
     <TextView
         android:id="@+id/category_fragment_name"
         style="@style/category_title"
-        tools:text="Category Name"/>
+        tools:text="Category Name "
+        android:layout_gravity="center" />
 
-    <TextView
-        android:id="@+id/category_fragment_spent"
-        style="@style/category_position"
-        tools:text="300/750"
-    />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:background="@color/application_background">
+
+        <TextView
+
+            android:id="@+id/category_fragment_spent"
+            style="@style/category_position_large"
+            tools:text="300"
+            android:layout_weight="1"
+            android:gravity="right" />
+
+        <TextView
+            style="@style/category_position_small"
+            android:text="/"/>
+
+        <TextView
+            android:id="@+id/category_fragment_budget"
+            style="@style/category_position_small"
+            tools:text="750"
+            android:layout_weight="1"
+            android:gravity="left" />
+
+    </LinearLayout>
+
+    <include
+        layout="@layout/linebreak" />
 
     <android.support.v7.widget.RecyclerView android:id="@+id/category_fragment_outgoings"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-        android:background="#AA0">
+                                            style="@style/main_viewpager_dark">
     </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>
