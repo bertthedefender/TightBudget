@@ -1,33 +1,39 @@
 package evos.tightbudget.presenter;
 
+import java.util.Date;
+
 import evos.tightbudget.model.Amount;
 import evos.tightbudget.model.BudgetCategory;
-import evos.tightbudget.model.Category;
-import evos.tightbudget.model.TightBudgetModel;
-import evos.tightbudget.view.OutgoingPresenterView;
+import evos.tightbudget.model.Expense;
+import evos.tightbudget.model.OutgoingExpense;
+import evos.tightbudget.view.NewOutgoingExpenseView;
 
 /**
  * Copyright © 2016 Media Applications Technologies. All rights reserved.
  */
-public class NewOutgoingPresenter implements OutgoingPresenterView.Callback {
-    private OutgoingPresenterView outgoingPresenterView;
-    private TightBudgetModel model;
+public class NewOutgoingPresenter implements NewOutgoingExpenseView.Callback {
+    private NewOutgoingExpenseView newOutgoingExpenseView;
+    private BudgetCategory category;
 
-    public NewOutgoingPresenter(OutgoingPresenterView outgoingPresenterView, TightBudgetModel model) {
-        this.outgoingPresenterView = outgoingPresenterView;
-        this.model = model;
-        outgoingPresenterView.addCallback(this);
+    public NewOutgoingPresenter(NewOutgoingExpenseView newOutgoingExpenseView, BudgetCategory category) {
+        this.newOutgoingExpenseView = newOutgoingExpenseView;
+        this.category = category;
+        newOutgoingExpenseView.addCallback(this);
     }
 
     @Override
     public void addOutgoing() {
 
-        String newCategoryName = outgoingPresenterView.getCategoryName();
-        Amount newCategoryBudget = Amount.fromPence(outgoingPresenterView.getCategoryBudget());
+        String newOutgoingDescription = newOutgoingExpenseView.getOutgoingDescription();
+        Date newOutgoingDate = newOutgoingExpenseView.getOutgoingDate();
+        Amount newOutgoingAmount = Amount.fromPence(newOutgoingExpenseView.getOutgoingAmount());
 
-        BudgetCategory newCategory = new Category(newCategoryName, newCategoryBudget);
+        Expense expense = new OutgoingExpense(newOutgoingDescription, newOutgoingDate, newOutgoingAmount);
 
-        model.addCategory(newCategory);
+        category.addOutgoing(expense);
+    }
 
+    public NewOutgoingExpenseView getView() {
+        return newOutgoingExpenseView;
     }
 }

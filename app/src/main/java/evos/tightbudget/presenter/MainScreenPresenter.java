@@ -7,6 +7,7 @@ import evos.tightbudget.model.TightBudgetModel;
 import evos.tightbudget.view.CategoryFragmentView;
 import evos.tightbudget.view.MainScreenView;
 import evos.tightbudget.view.factories.CategoryFragmentViewFactory;
+import evos.tightbudget.view.factories.NewOutgoingExpenseViewFactory;
 
 /**
  * Created by mcdons20 on 19/02/16.
@@ -23,7 +24,10 @@ public class MainScreenPresenter {
         mainScreenView.addCallback(new MainScreenView.Callback() {
             @Override
             public void addNewOutgoing(String selectedCategory) {
-                mainScreenView.showNewOutgoingDialog(selectedCategory);
+
+                NewOutgoingPresenter newOutgoingPresenter = new NewOutgoingPresenter(NewOutgoingExpenseViewFactory.create(), MainScreenPresenter.this.model.getCategory(selectedCategory));
+
+                mainScreenView.showNewOutgoingDialog(newOutgoingPresenter.getView());
             }
         });
 
@@ -32,6 +36,8 @@ public class MainScreenPresenter {
             this.addCategoryPresenter(categoryFragmentPresenter);
             categoryFragmentPresenter.bind();
         }
+
+
     }
 
     private void addCategoryPresenter(CategoryFragmentPresenter categoryFragmentPresenter) {

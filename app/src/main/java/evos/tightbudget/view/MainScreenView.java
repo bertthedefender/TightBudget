@@ -13,7 +13,7 @@ public interface MainScreenView {
 
     void addCallback(Callback callback);
 
-    void showNewOutgoingDialog(String category);
+    void showNewOutgoingDialog(NewOutgoingExpenseView outgoingExpenseView);
 
     interface Callback {
         void addNewOutgoing(String selectedCategory);

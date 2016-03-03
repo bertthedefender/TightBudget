@@ -14,6 +14,7 @@ import evos.tightbudget.model.TightBudgetModel;
 import evos.tightbudget.presenter.MainScreenPresenter;
 import evos.tightbudget.view.CategoryFragmentView;
 import evos.tightbudget.view.MainScreenView;
+import evos.tightbudget.view.NewOutgoingExpenseView;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -87,7 +88,7 @@ public class MainScreenPresenterTest {
         }
 
         @Override
-        public void showNewOutgoingDialog(String category) {
+        public void showNewOutgoingDialog(NewOutgoingExpenseView outgoingExpenseView) {
             showAddDialogCalled = true;
         }
 

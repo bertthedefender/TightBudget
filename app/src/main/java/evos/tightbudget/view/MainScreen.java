@@ -1,5 +1,6 @@
 package evos.tightbudget.view;
 
+import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -56,7 +57,11 @@ public class MainScreen extends FragmentActivity implements MainScreenView {
     }
 
     @Override
-    public void showNewOutgoingDialog(String category) {
+    public void showNewOutgoingDialog(NewOutgoingExpenseView view) {
+
+        FragmentManager fm = getSupportFragmentManager();
+        ((android.support.v4.app.DialogFragment)view).show(fm,null);
+        //editNameDialog.show(fm, "fragment_edit_name");
 
     }
 

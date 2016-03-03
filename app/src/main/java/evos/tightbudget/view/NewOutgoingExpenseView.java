@@ -1,18 +1,21 @@
 package evos.tightbudget.view;
 
+import java.util.Date;
+
 /**
  * Copyright © 2016 Media Applications Technologies. All rights reserved.
  */
-public interface OutgoingPresenterView {
+public interface NewOutgoingExpenseView {
 
     void addCallback(Callback callback);
-
 
     interface Callback {
         void addOutgoing();
     }
 
-    String getCategoryName();
+    String getOutgoingDescription();
 
-    int getCategoryBudget();
+    Date getOutgoingDate();
+
+    int getOutgoingAmount();
 }

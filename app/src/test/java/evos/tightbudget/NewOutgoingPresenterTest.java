@@ -3,13 +3,15 @@ package evos.tightbudget;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import evos.tightbudget.model.Amount;
-import evos.tightbudget.model.BudgetCategory;
+import evos.tightbudget.model.Category;
 import evos.tightbudget.model.TightBudgetModel;
+import evos.tightbudget.model.Utils;
 import evos.tightbudget.presenter.NewOutgoingPresenter;
-import evos.tightbudget.view.OutgoingPresenterView;
+import evos.tightbudget.view.NewOutgoingExpenseView;
 
 import static junit.framework.Assert.assertNotNull;
 import static org.hamcrest.CoreMatchers.is;
@@ -21,16 +23,17 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class NewOutgoingPresenterTest {
 
 
-    private class TestOutgoingPresenterView implements OutgoingPresenterView {
+    private class TestNewOutgoingExpenseView implements NewOutgoingExpenseView {
         private String name;
         private Amount budget;
         public List<Callback> callbacks = new ArrayList<>();
+        private Date date;
 
-        public void setName(String name) {
+        public void setDescription(String name) {
             this.name = name;
         }
 
-        public void setBudget(Amount budget) {
+        public void setAmount(Amount budget) {
             this.budget = budget;
         }
 
@@ -46,20 +49,31 @@ public class NewOutgoingPresenterTest {
         }
 
         @Override
-        public String getCategoryName() {
+        public String getOutgoingDescription() {
             return name;
         }
 
         @Override
-        public int getCategoryBudget() {
+        public Date getOutgoingDate() {
+            return date;
+        }
+
+        @Override
+        public int getOutgoingAmount() {
             return budget.asPence();
+        }
+
+        public void setDate(Date date) {
+            this.date = date;
         }
     }
 
+
+
     @Test
     public void whenAPresenterIsGivenAView_itSetsupTheCallbacks() {
-        TestOutgoingPresenterView view  = new TestOutgoingPresenterView();
-        NewOutgoingPresenter presenter = new NewOutgoingPresenter(view, new TightBudgetModel());
+        TestNewOutgoingExpenseView view  = new TestNewOutgoingExpenseView();
+        NewOutgoingPresenter presenter = new NewOutgoingPresenter(view,new Category("",Amount.fromPence(0)));
 
         assertThat(view.callbacks.size()>0, is(true));
     }
@@ -68,23 +82,25 @@ public class NewOutgoingPresenterTest {
     @Test
     public void whenAPresenterIsGivenAModelAndCategoryDetails_andToldToAddIt_ItIsAddedToTheModel() {
 
-        String expectedName = "added";
-        Amount expectedBudget = Amount.fromPence(100);
+        Amount expectedAmount = Amount.fromPence(100);
+        String expectedDescription = "added";
 
         TightBudgetModel model = new TightBudgetModel(Amount.fromPence(1000));
 
-        TestOutgoingPresenterView view = new TestOutgoingPresenterView();
-        view.setName(expectedName);
-        view.setBudget(expectedBudget);
+        TestNewOutgoingExpenseView view = new TestNewOutgoingExpenseView();
+        view.setDescription(expectedDescription);
+        view.setAmount(expectedAmount);
+        view.setDate(Utils.getDate(2010, 07, 17));
 
-        NewOutgoingPresenter presenter = new NewOutgoingPresenter(view, model);
+        Category testCategory = new Category("category", Amount.fromPence(100));
+
+        NewOutgoingPresenter presenter = new NewOutgoingPresenter(view, testCategory);
 
         view.invokeAdd();
 
-        BudgetCategory addedCategory = model.getCategory(expectedName);
-        assertNotNull(addedCategory);
-        assertThat(addedCategory.getName(), is(expectedName));
-        assertThat(addedCategory.getBudget().asPence(), is(expectedBudget.asPence()));
+        assertThat(testCategory.getOutgoings().get(0).getAmount().asPence(), is(expectedAmount.asPence()));
+        assertThat(testCategory.getOutgoings().get(0).getDate(), is(Utils.getDate(2010,07,17)));
+        assertThat(testCategory.getOutgoings().get(0).getDescription(), is(expectedDescription));
     }
 
 }
