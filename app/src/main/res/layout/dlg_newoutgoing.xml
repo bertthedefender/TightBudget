@@ -35,12 +35,12 @@ android:padding="10dp">
                 android:layout_width="match_parent"
                  android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/newoutgoing_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:focusable="false"
-        android:focusableInTouchMode="false"/>
+        <EditText
+            android:id="@+id/newoutgoing_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:focusableInTouchMode="false"/>
 
     </evos.tightbudget.view.TouchCapturingFrameLayout>
 
