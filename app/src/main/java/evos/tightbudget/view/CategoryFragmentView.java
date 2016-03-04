@@ -11,4 +11,8 @@ import evos.tightbudget.model.Expense;
 public interface CategoryFragmentView {
     void setCurrentPosition(String categoryName, Amount currentSpend, Amount budgetTotal);
     void setOutgoingExpenseData(List<Expense> adapter);
+
+    String getCategoryName();
+
+    void dataUpdated();
 }

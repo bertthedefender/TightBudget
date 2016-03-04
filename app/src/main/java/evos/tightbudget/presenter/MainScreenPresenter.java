@@ -3,6 +3,7 @@ package evos.tightbudget.presenter;
 import java.util.ArrayList;
 import java.util.List;
 
+import evos.tightbudget.model.OutgoingExpense;
 import evos.tightbudget.model.TightBudgetModel;
 import evos.tightbudget.view.CategoryFragmentView;
 import evos.tightbudget.view.MainScreenView;
@@ -23,9 +24,16 @@ public class MainScreenPresenter {
 
         mainScreenView.addCallback(new MainScreenView.Callback() {
             @Override
-            public void addNewOutgoing(String selectedCategory) {
+            public void addNewOutgoing(final String selectedCategory) {
 
                 NewOutgoingPresenter newOutgoingPresenter = new NewOutgoingPresenter(NewOutgoingExpenseViewFactory.create(), MainScreenPresenter.this.model.getCategory(selectedCategory));
+
+                newOutgoingPresenter.addNewOutgoingAddedCallback(new NewOutgoingPresenter.NewOutgoingAddedCallback() {
+                    @Override
+                    public void newOutgoingAdded() {
+                        mainScreenView.refreshCurrentCategoryDisplay();
+                    }
+                });
 
                 mainScreenView.showNewOutgoingDialog(newOutgoingPresenter.getView());
             }

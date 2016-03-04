@@ -1,5 +1,6 @@
 package evos.tightbudget.presenter;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import evos.tightbudget.model.Amount;
@@ -14,6 +15,7 @@ import evos.tightbudget.view.NewOutgoingExpenseView;
 public class NewOutgoingPresenter implements NewOutgoingExpenseView.Callback {
     private NewOutgoingExpenseView newOutgoingExpenseView;
     private BudgetCategory category;
+    private ArrayList<NewOutgoingAddedCallback> newOutgoingAddedCallbacks = new ArrayList<>();
 
     public NewOutgoingPresenter(NewOutgoingExpenseView newOutgoingExpenseView, BudgetCategory category) {
         this.newOutgoingExpenseView = newOutgoingExpenseView;
@@ -31,13 +33,21 @@ public class NewOutgoingPresenter implements NewOutgoingExpenseView.Callback {
         Expense expense = new OutgoingExpense(newOutgoingDescription, newOutgoingDate, newOutgoingAmount);
 
         category.addOutgoing(expense);
+
+        for (NewOutgoingAddedCallback callback:newOutgoingAddedCallbacks) {
+            callback.newOutgoingAdded();
+        }
     }
 
     public NewOutgoingExpenseView getView() {
         return newOutgoingExpenseView;
     }
 
-    interface NewOutgoingAddedCallback {
+    public void addNewOutgoingAddedCallback(NewOutgoingAddedCallback callback) {
+        newOutgoingAddedCallbacks.add(callback);
+    }
+
+    public interface NewOutgoingAddedCallback {
         void newOutgoingAdded();
     }
 }

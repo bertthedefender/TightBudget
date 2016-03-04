@@ -15,6 +15,8 @@ public interface MainScreenView {
 
     void showNewOutgoingDialog(NewOutgoingExpenseView outgoingExpenseView);
 
+    void refreshCurrentCategoryDisplay();
+
     interface Callback {
         void addNewOutgoing(String selectedCategory);
     }

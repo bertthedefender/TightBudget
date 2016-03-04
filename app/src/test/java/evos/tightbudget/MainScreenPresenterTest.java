@@ -62,6 +62,7 @@ public class MainScreenPresenterTest {
         MainScreenPresenter presenter = new MainScreenPresenter(fakeMainView, model);
         fakeMainView.callback.addNewOutgoing("Category 1");
         assertThat(fakeMainView.showAddDialogCalled, is(true));
+
     }
 
     class CapturingMainView implements MainScreenView {
@@ -70,6 +71,7 @@ public class MainScreenPresenterTest {
         public String capturedBudgetText;
         public Callback callback;
         public boolean showAddDialogCalled = false;
+        private boolean displayRefreshed = false;
 
 
         @Override
@@ -90,6 +92,11 @@ public class MainScreenPresenterTest {
         @Override
         public void showNewOutgoingDialog(NewOutgoingExpenseView outgoingExpenseView) {
             showAddDialogCalled = true;
+        }
+
+        @Override
+        public void refreshCurrentCategoryDisplay() {
+            displayRefreshed = true;
         }
 
 

@@ -30,7 +30,6 @@ public class MainScreen extends FragmentActivity implements MainScreenView {
 
     MainScreenPresenter presenter;
 
-
     private ArrayList<CategoryFragment> categoryViews = new ArrayList<>();
 
     private FloatingActionButton addNewOutgoing;
@@ -60,8 +59,19 @@ public class MainScreen extends FragmentActivity implements MainScreenView {
     public void showNewOutgoingDialog(NewOutgoingExpenseView view) {
 
         FragmentManager fm = getSupportFragmentManager();
-        ((android.support.v4.app.DialogFragment)view).show(fm,null);
-        //editNameDialog.show(fm, "fragment_edit_name");
+
+        android.support.v4.app.DialogFragment dialog = (android.support.v4.app.DialogFragment) view;
+        dialog.show(fm, null);
+
+    }
+
+    @Override
+    public void refreshCurrentCategoryDisplay() {
+
+        CategoryPagerAdapter adapter = (CategoryPagerAdapter)viewPager.getAdapter();
+        CategoryFragment categoryFragment = (CategoryFragment)((CategoryPagerAdapter) viewPager.getAdapter()).getItem(viewPager.getCurrentItem());
+
+        categoryFragment.dataUpdated();
 
     }
 
@@ -84,10 +94,8 @@ public class MainScreen extends FragmentActivity implements MainScreenView {
 
                 CategoryPagerAdapter adapter = (CategoryPagerAdapter)viewPager.getAdapter();
                 CategoryFragment selectedFragment = (CategoryFragment)adapter.categoryFragments.get(viewPager.getCurrentItem());
-                String selectedCategory = ((TextView)selectedFragment.getActivity().findViewById(R.id.category_fragment_name)).getText().toString();
-
                 for (Callback callback:callbacks) {
-                    callback.addNewOutgoing(selectedCategory);
+                    callback.addNewOutgoing(selectedFragment.getCategoryName());
                 }
             }
         });
@@ -97,7 +105,6 @@ public class MainScreen extends FragmentActivity implements MainScreenView {
     private class CategoryPagerAdapter extends FragmentStatePagerAdapter {
 
         private List<CategoryFragmentView> categoryFragments;
-        private int lastPosition;
 
         public CategoryPagerAdapter(FragmentManager fm, List<CategoryFragmentView> categoryFragments) {
             super(fm);
@@ -106,7 +113,6 @@ public class MainScreen extends FragmentActivity implements MainScreenView {
 
         @Override
         public Fragment getItem(int position) {
-            lastPosition = position;
             return (CategoryFragment)categoryFragments.get(position);
         }
 

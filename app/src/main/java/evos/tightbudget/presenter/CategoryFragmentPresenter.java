@@ -2,11 +2,12 @@ package evos.tightbudget.presenter;
 
 import evos.tightbudget.model.BudgetCategory;
 import evos.tightbudget.view.CategoryFragmentView;
+import evos.tightbudget.view.MainScreenView;
 
 /**
  * Created by S on 15/02/2016.
  */
-public class CategoryFragmentPresenter  {
+public class CategoryFragmentPresenter {
     private final CategoryFragmentView categoryFragmentView;
     private final BudgetCategory category;
 
@@ -24,4 +25,5 @@ public class CategoryFragmentPresenter  {
     public CategoryFragmentView getView() {
         return categoryFragmentView;
     }
+
 }

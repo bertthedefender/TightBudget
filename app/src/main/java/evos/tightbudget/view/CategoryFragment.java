@@ -12,10 +12,13 @@ import android.widget.TextView;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import evos.tightbudget.R;
 import evos.tightbudget.model.Amount;
+import evos.tightbudget.model.BudgetCategory;
+import evos.tightbudget.model.DataPump;
 import evos.tightbudget.model.Expense;
 
 /**
@@ -104,6 +107,11 @@ public class CategoryFragment extends Fragment implements CategoryFragmentView {
         this.outgoings = expenseList;
     }
 
+    @Override
+    public String getCategoryName() {
+        return categoryName;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -115,13 +123,30 @@ public class CategoryFragment extends Fragment implements CategoryFragmentView {
         categoryBudget = (TextView)view.findViewById(R.id.category_fragment_budget);
         outgoingsRecyclerView = (RecyclerView)view.findViewById(R.id.category_fragment_outgoings);
 
+        outgoingsRecyclerView.setAdapter(new OutgoingsAdapter(outgoings));
+        outgoingsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        dataUpdated();
+
+        return view;
+    }
+
+
+    @Override
+    public void dataUpdated() {
+
+        BudgetCategory category = DataPump.model().getCategory(this.categoryName);
+
+        this.currentSpend = category.getTotalSpend();
+        this.budgetTotal = category.getBudget();
+        
         categoryNameView.setText(this.categoryName);
         categoryCurrentSpend.setText(String.valueOf(this.currentSpend.asPence()));
         categoryBudget.setText(String.valueOf(this.budgetTotal.asPence()));
 
-        outgoingsRecyclerView.setAdapter(new OutgoingsAdapter(outgoings));
-        outgoingsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        return view;
+        outgoingsRecyclerView.getAdapter().notifyDataSetChanged();
     }
+
+
+
 }

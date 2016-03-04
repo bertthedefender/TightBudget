@@ -70,6 +70,16 @@ public class CategoryFragmentPresenterTest {
             this.capturedData = expenseData;
         }
 
+        @Override
+        public String getCategoryName() {
+            return categoryName;
+        }
+
+        @Override
+        public void dataUpdated() {
+
+        }
+
     }
 
 }
