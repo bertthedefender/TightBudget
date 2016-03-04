@@ -22,7 +22,7 @@ public class NewOutgoingPresenter implements NewOutgoingExpenseView.Callback {
     }
 
     @Override
-    public void addOutgoing() {
+    public void addClicked() {
 
         String newOutgoingDescription = newOutgoingExpenseView.getOutgoingDescription();
         Date newOutgoingDate = newOutgoingExpenseView.getOutgoingDate();

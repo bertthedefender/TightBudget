@@ -1,14 +1,17 @@
 package evos.tightbudget.view;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
-import android.widget.Button;
+import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,7 +26,9 @@ public class NewOutgoingExpense extends DialogFragment implements NewOutgoingExp
     private ArrayList<Callback> callbacks = new ArrayList<>();
     private EditText description;
     private EditText amount;
-    private Button addButton;
+    private EditText date;
+    private FrameLayout dateTouchCapturer;
+
 
     @Override
     public void addCallback(Callback callback) {
@@ -44,31 +49,57 @@ public class NewOutgoingExpense extends DialogFragment implements NewOutgoingExp
     public int getOutgoingAmount() {
         return Integer.valueOf(amount.getText().toString());
     }
-    
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        // Get the layout inflater
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
-        // Inflate and set the layout for the dialog
-        // Pass null as the parent view because its going in the dialog layout
-        builder.setView(inflater.inflate(R.layout.dlg_newoutgoing, null))
-                // Add action buttons
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+        View view = inflater.inflate(R.layout.dlg_newoutgoing, null);
+
+        description = (EditText)view.findViewById(R.id.newoutgoing_description);
+        amount = (EditText)view.findViewById(R.id.newoutgoing_amount);
+        date = (EditText)view.findViewById(R.id.newoutgoing_date);
+        dateTouchCapturer = (FrameLayout)view.findViewById(R.id.newoutgoing_touchCapturingFrame);
+
+        dateTouchCapturer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                DatePickerDialogFragment datePickerDialogFragment = new DatePickerDialogFragment();
+                datePickerDialogFragment.setCallback(new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        date.setText("" + dayOfMonth + "/" + monthOfYear + "/" + year) ;
+                    }
+                });
+
+                datePickerDialogFragment.show(getFragmentManager(), null);
+
+            }
+        });
+
+
+        builder.setView(view)
                 .setPositiveButton("Save", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        // sign in the user ...
+
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         NewOutgoingExpense.this.getDialog().cancel();
                     }
-                });
+                })
+                .setTitle("Add new Outgoing");
+
         return builder.create();
 
     }
+
+
 }

@@ -10,7 +10,7 @@ public interface NewOutgoingExpenseView {
     void addCallback(Callback callback);
 
     interface Callback {
-        void addOutgoing();
+        void addClicked();
     }
 
     String getOutgoingDescription();

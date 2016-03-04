@@ -13,7 +13,6 @@ import evos.tightbudget.model.Utils;
 import evos.tightbudget.presenter.NewOutgoingPresenter;
 import evos.tightbudget.view.NewOutgoingExpenseView;
 
-import static junit.framework.Assert.assertNotNull;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -39,7 +38,7 @@ public class NewOutgoingPresenterTest {
 
         public void invokeAdd() {
             for (Callback callback:callbacks) {
-                callback.addOutgoing();
+                callback.addClicked();
             }
         }
 
