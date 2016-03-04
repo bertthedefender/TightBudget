@@ -78,7 +78,6 @@ public class NewOutgoingExpense extends DialogFragment implements NewOutgoingExp
                 });
 
                 datePickerDialogFragment.show(getFragmentManager(), null);
-
             }
         });
 
@@ -87,6 +86,10 @@ public class NewOutgoingExpense extends DialogFragment implements NewOutgoingExp
                 .setPositiveButton("Save", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
+
+                        for (Callback callback : NewOutgoingExpense.this.callbacks) {
+                            callback.addClicked();
+                        }
 
                     }
                 })

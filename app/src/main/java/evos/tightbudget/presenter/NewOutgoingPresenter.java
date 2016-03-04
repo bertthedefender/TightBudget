@@ -36,4 +36,8 @@ public class NewOutgoingPresenter implements NewOutgoingExpenseView.Callback {
     public NewOutgoingExpenseView getView() {
         return newOutgoingExpenseView;
     }
+
+    interface NewOutgoingAddedCallback {
+        void newOutgoingAdded();
+    }
 }
