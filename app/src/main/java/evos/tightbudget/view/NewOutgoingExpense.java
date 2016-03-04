@@ -1,12 +1,12 @@
 package evos.tightbudget.view;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -44,28 +44,31 @@ public class NewOutgoingExpense extends DialogFragment implements NewOutgoingExp
     public int getOutgoingAmount() {
         return Integer.valueOf(amount.getText().toString());
     }
-
-    @Nullable
+    
+    @NonNull
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.dlg_newoutgoing, container, false);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        // Get the layout inflater
+        LayoutInflater inflater = getActivity().getLayoutInflater();
 
-        description = (EditText)view.findViewById(R.id.newoutgoing_description);
-        amount = (EditText)view.findViewById(R.id.newoutgoing_amount);
+        // Inflate and set the layout for the dialog
+        // Pass null as the parent view because its going in the dialog layout
+        builder.setView(inflater.inflate(R.layout.dlg_newoutgoing, null))
+                // Add action buttons
+                .setPositiveButton("Save", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        // sign in the user ...
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        NewOutgoingExpense.this.getDialog().cancel();
+                    }
+                });
+        return builder.create();
 
-        addButton = (Button)view.findViewById(R.id.newoutgoing_btn_add);
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                for (Callback callback:callbacks) {
-                    callback.addOutgoing();
-                }
-            }
-        });
-
-        getDialog().setTitle("Add new Outgoing");
-
-        return view;
     }
 }
