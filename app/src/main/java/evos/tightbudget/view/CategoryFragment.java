@@ -10,9 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 import evos.tightbudget.R;
@@ -48,7 +46,7 @@ public class CategoryFragment extends Fragment implements CategoryFragmentView {
             OutgoingsViewHolder view = (OutgoingsViewHolder)holder;
             view.setAmount("" + expense.getAmount().asPence());
 
-            view.setDate( new SimpleDateFormat("d MMM").format(expense.getDate()));
+            view.setDate(SimpleDateFormat.getDateInstance().format(expense.getDate()));
             view.setDescription(expense.getDescription());
 
         }
@@ -146,7 +144,4 @@ public class CategoryFragment extends Fragment implements CategoryFragmentView {
 
         outgoingsRecyclerView.getAdapter().notifyDataSetChanged();
     }
-
-
-
 }

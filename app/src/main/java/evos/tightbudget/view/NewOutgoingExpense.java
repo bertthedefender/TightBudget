@@ -13,7 +13,9 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import evos.tightbudget.R;
@@ -73,7 +75,10 @@ public class NewOutgoingExpense extends DialogFragment implements NewOutgoingExp
                 datePickerDialogFragment.setCallback(new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        date.setText("" + dayOfMonth + "/" + monthOfYear + "/" + year) ;
+
+                        Calendar c = Calendar.getInstance();
+                        c.set(year,monthOfYear,dayOfMonth);
+                        date.setText(SimpleDateFormat.getDateInstance().format(c.getTime()));
                     }
                 });
 
