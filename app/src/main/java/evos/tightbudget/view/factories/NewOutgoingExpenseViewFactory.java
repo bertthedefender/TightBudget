@@ -1,6 +1,6 @@
 package evos.tightbudget.view.factories;
 
-import evos.tightbudget.view.NewOutgoingExpense;
+import evos.tightbudget.view.NewOutgoingExpenseFragment;
 import evos.tightbudget.view.NewOutgoingExpenseView;
 
 /**
@@ -8,6 +8,6 @@ import evos.tightbudget.view.NewOutgoingExpenseView;
  */
 public class NewOutgoingExpenseViewFactory {
     public static NewOutgoingExpenseView create() {
-        return new NewOutgoingExpense();
+        return new NewOutgoingExpenseFragment();
     }
 }

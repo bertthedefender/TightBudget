@@ -1,14 +1,15 @@
 package evos.tightbudget.view;
 
-import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.telecom.Call;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.TextView;
 
@@ -17,16 +18,13 @@ import java.util.List;
 
 import evos.tightbudget.R;
 import evos.tightbudget.TightBudgetApplication;
-import evos.tightbudget.model.Amount;
-import evos.tightbudget.model.BudgetCategory;
-import evos.tightbudget.model.Category;
 import evos.tightbudget.presenter.MainScreenPresenter;
 
 
 /**
  * Created by mcdons20 on 19/02/16.
  */
-public class MainScreen extends FragmentActivity implements MainScreenView {
+public class MainScreen extends AppCompatActivity implements MainScreenView {
 
     MainScreenPresenter presenter;
 
@@ -77,9 +75,21 @@ public class MainScreen extends FragmentActivity implements MainScreenView {
 
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_screen);
+
+        ActionBar actionBar = getSupportActionBar();
+
+        actionBar.setTitle("Budgie Tap");
+        actionBar.setIcon(R.drawable.actionicon);
 
         addNewOutgoing = (FloatingActionButton)findViewById(R.id.main_addNewOutgoing);
         totalBudget = (TextView)findViewById(R.id.main_totalBudget);
