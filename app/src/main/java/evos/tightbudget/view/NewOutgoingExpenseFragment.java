@@ -66,7 +66,7 @@ public class NewOutgoingExpenseFragment extends DialogFragment implements NewOut
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        View view = inflater.inflate(R.layout.dlg_newoutgoing, null);
+        View view = inflater.inflate(R.layout.new_outgoing_dialog, null);
 
         description = (EditText)view.findViewById(R.id.newoutgoing_description);
         amount = (EditText)view.findViewById(R.id.newoutgoing_amount);
