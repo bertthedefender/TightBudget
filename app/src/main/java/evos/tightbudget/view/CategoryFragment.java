@@ -137,11 +137,13 @@ public class CategoryFragment extends Fragment implements CategoryFragmentView {
 
         this.currentSpend = category.getTotalSpend();
         this.budgetTotal = category.getBudget();
-        
+
         categoryNameView.setText(this.categoryName);
         categoryCurrentSpend.setText(String.valueOf(this.currentSpend.asPence()));
         categoryBudget.setText(String.valueOf(this.budgetTotal.asPence()));
 
         outgoingsRecyclerView.getAdapter().notifyDataSetChanged();
+
+        outgoingsRecyclerView.smoothScrollToPosition(outgoingsRecyclerView.getAdapter().getItemCount()-1);
     }
 }
