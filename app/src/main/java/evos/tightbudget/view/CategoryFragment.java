@@ -3,6 +3,7 @@ package evos.tightbudget.view;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -31,6 +32,7 @@ public class CategoryFragment extends Fragment implements CategoryFragmentView {
 
         public OutgoingsAdapter(List<Expense> outgoings) {
             this.outgoings = outgoings;
+           // setHasStableIds(true);
         }
 
         @Override
@@ -54,6 +56,11 @@ public class CategoryFragment extends Fragment implements CategoryFragmentView {
         @Override
         public int getItemCount() {
             return outgoings.size();
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return outgoings.get(position).hashCode();
         }
     }
 
@@ -92,6 +99,7 @@ public class CategoryFragment extends Fragment implements CategoryFragmentView {
     private String categoryName;
     private List<Expense> outgoings;
     private RecyclerView outgoingsRecyclerView;
+    private OutgoingsAdapter adapter;
 
     @Override
     public void setCurrentPosition(String categoryName, Amount currentSpend, Amount budgetTotal) {
@@ -121,7 +129,17 @@ public class CategoryFragment extends Fragment implements CategoryFragmentView {
         categoryBudget = (TextView)view.findViewById(R.id.category_fragment_budget);
         outgoingsRecyclerView = (RecyclerView)view.findViewById(R.id.category_fragment_outgoings);
 
-        outgoingsRecyclerView.setAdapter(new OutgoingsAdapter(outgoings));
+        DefaultItemAnimator animator = new DefaultItemAnimator();
+        animator.setAddDuration(250);
+        animator.setChangeDuration(250);
+        animator.setMoveDuration(150);
+        animator.setRemoveDuration(250);
+
+        outgoingsRecyclerView.setItemAnimator(animator);
+
+        adapter = new OutgoingsAdapter(outgoings);
+        outgoingsRecyclerView.setAdapter(adapter);
+
         outgoingsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         dataUpdated();
@@ -137,13 +155,15 @@ public class CategoryFragment extends Fragment implements CategoryFragmentView {
 
         this.currentSpend = category.getTotalSpend();
         this.budgetTotal = category.getBudget();
-
+        
         categoryNameView.setText(this.categoryName);
         categoryCurrentSpend.setText(String.valueOf(this.currentSpend.asPence()));
         categoryBudget.setText(String.valueOf(this.budgetTotal.asPence()));
 
-        outgoingsRecyclerView.getAdapter().notifyDataSetChanged();
-
         outgoingsRecyclerView.smoothScrollToPosition(outgoingsRecyclerView.getAdapter().getItemCount()-1);
+        outgoingsRecyclerView.scrollToPosition(0);
+        adapter.notifyItemInserted(0);
+
+
     }
 }

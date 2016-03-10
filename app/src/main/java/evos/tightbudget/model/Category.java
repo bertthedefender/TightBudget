@@ -43,7 +43,7 @@ public class Category implements BudgetCategory {
 
     @Override
     public void addOutgoing(Expense expense) {
-        this.expenses.add(expense);
+        this.expenses.add(0,expense);
     }
 
     @Override

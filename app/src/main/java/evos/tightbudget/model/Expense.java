@@ -9,4 +9,5 @@ public interface Expense extends JSONPersistence<Expense> {
     String getDescription();
     Date getDate();
     Amount getAmount();
+
 }
