@@ -13,4 +13,8 @@ public class Utils {
         Calendar calendar = new GregorianCalendar(year, month-1, day);
         return calendar.getTime();
     }
+
+    public static Date anyDate() {
+        return getDate(2001,01,01);
+    }
 }
