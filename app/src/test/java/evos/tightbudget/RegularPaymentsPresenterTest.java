@@ -13,6 +13,8 @@ import evos.tightbudget.model.Category;
 import evos.tightbudget.model.Expense;
 import evos.tightbudget.model.OutgoingExpense;
 import evos.tightbudget.model.Utils;
+import evos.tightbudget.presenter.RegularPaymentsPresenter;
+import evos.tightbudget.view.RegularPaymentsView;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -72,32 +74,6 @@ public class RegularPaymentsPresenterTest {
     }
 
 
-
-    private class RegularPaymentsPresenter implements RegularPaymentsView.ItemAddedCallback {
-        private RegularPaymentsView regularPaymentsView;
-        private BudgetCategory regularPaymentsCategory;
-
-        public RegularPaymentsPresenter(RegularPaymentsView regularPaymentsView, BudgetCategory category) {
-            this.regularPaymentsView = regularPaymentsView;
-            regularPaymentsCategory = category;
-
-            regularPaymentsView.setOutgoings(category.getOutgoings());
-            regularPaymentsView.addItemAddedCallback(this);
-        }
-
-        @Override
-        public void itemAdded() {
-
-            String description = regularPaymentsView.getDescription();
-            Amount amount = regularPaymentsView.getAmount();
-            Date dateAdded = Utils.anyDate();
-
-
-            regularPaymentsCategory.addOutgoing(new OutgoingExpense(description,dateAdded, amount));
-
-        }
-    }
-
     private class CapturingRegularPaymentsView implements RegularPaymentsView {
 
         private List<Expense> regularPayments = new ArrayList<>();
@@ -142,20 +118,4 @@ public class RegularPaymentsPresenterTest {
         }
     }
 
-    interface RegularPaymentsView {
-
-
-        List<Expense> getRegularPayments();
-
-        void setOutgoings(List<Expense> outgoings);
-
-        interface ItemAddedCallback {
-            void itemAdded();
-        }
-
-        void addItemAddedCallback(ItemAddedCallback itemAddedCallback);
-
-        String getDescription();
-        Amount getAmount();
-    }
 }
