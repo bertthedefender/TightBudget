@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import evos.tightbudget.model.Amount;
-import evos.tightbudget.model.BudgetCategory;
 import evos.tightbudget.model.Category;
 import evos.tightbudget.model.OutgoingExpense;
 import evos.tightbudget.model.TightBudgetModel;
