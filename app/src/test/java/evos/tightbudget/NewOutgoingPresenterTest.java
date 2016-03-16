@@ -83,7 +83,6 @@ public class NewOutgoingPresenterTest {
 
         Amount expectedAmount = Amount.fromPence(100);
         String expectedDescription = "added";
-        final Boolean[] callbackfired = new Boolean[1];
 
         TightBudgetModel model = new TightBudgetModel(Amount.fromPence(1000));
 
@@ -96,19 +95,11 @@ public class NewOutgoingPresenterTest {
 
         NewOutgoingPresenter presenter = new NewOutgoingPresenter(view, testCategory);
 
-        presenter.addNewOutgoingAddedCallback(new NewOutgoingPresenter.NewOutgoingAddedCallback() {
-            @Override
-            public void newOutgoingAdded() {
-                callbackfired[0] = true;
-            }
-        });
-
         view.invokeAdd();
 
         assertThat(testCategory.getOutgoings().get(0).getAmount().asPence(), is(expectedAmount.asPence()));
         assertThat(testCategory.getOutgoings().get(0).getDate(), is(Utils.getDate(2010,07,17)));
         assertThat(testCategory.getOutgoings().get(0).getDescription(), is(expectedDescription));
-        assertThat(callbackfired[0], is(true));
     }
 
 }

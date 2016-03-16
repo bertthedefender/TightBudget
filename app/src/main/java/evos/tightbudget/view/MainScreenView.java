@@ -2,8 +2,6 @@ package evos.tightbudget.view;
 
 import java.util.List;
 
-import evos.tightbudget.model.BudgetCategory;
-
 /**
  * Created by mcdons20 on 19/02/16.
  */
@@ -11,13 +9,11 @@ public interface MainScreenView {
     void setCategoryViews(List<CategoryFragmentView> categoryFragmentViews);
     void setTotalBudgetText(String budgetText);
 
-    void addCallback(Callback callback);
+    void addNewOutgoingClickedCallback(NewOutgoingClickedCallback newOutgoingClickedCallback);
 
     void showNewOutgoingDialog(NewOutgoingExpenseView outgoingExpenseView);
 
-    void refreshCurrentCategoryDisplay();
-
-    interface Callback {
-        void addNewOutgoing(String selectedCategory);
+    interface NewOutgoingClickedCallback {
+        void addNewOutgoingClicked(String selectedCategory);
     }
 }

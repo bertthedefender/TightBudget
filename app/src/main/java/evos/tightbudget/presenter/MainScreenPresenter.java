@@ -3,7 +3,6 @@ package evos.tightbudget.presenter;
 import java.util.ArrayList;
 import java.util.List;
 
-import evos.tightbudget.model.OutgoingExpense;
 import evos.tightbudget.model.TightBudgetModel;
 import evos.tightbudget.view.CategoryFragmentView;
 import evos.tightbudget.view.MainScreenView;
@@ -22,19 +21,10 @@ public class MainScreenPresenter {
         this.mainScreenView = mainScreenView;
         this.model = model;
 
-        mainScreenView.addCallback(new MainScreenView.Callback() {
+        mainScreenView.addNewOutgoingClickedCallback(new MainScreenView.NewOutgoingClickedCallback() {
             @Override
-            public void addNewOutgoing(final String selectedCategory) {
-
+            public void addNewOutgoingClicked(final String selectedCategory) {
                 NewOutgoingPresenter newOutgoingPresenter = new NewOutgoingPresenter(NewOutgoingExpenseViewFactory.create(), MainScreenPresenter.this.model.getCategory(selectedCategory));
-
-                newOutgoingPresenter.addNewOutgoingAddedCallback(new NewOutgoingPresenter.NewOutgoingAddedCallback() {
-                    @Override
-                    public void newOutgoingAdded() {
-                        mainScreenView.refreshCurrentCategoryDisplay();
-                    }
-                });
-
                 mainScreenView.showNewOutgoingDialog(newOutgoingPresenter.getView());
             }
         });
@@ -42,7 +32,6 @@ public class MainScreenPresenter {
         for (String name : model.categories.keySet()) {
             CategoryFragmentPresenter categoryFragmentPresenter = new CategoryFragmentPresenter(CategoryFragmentViewFactory.create(), model.categories.get(name));
             this.addCategoryPresenter(categoryFragmentPresenter);
-            categoryFragmentPresenter.bind();
         }
 
 

@@ -7,7 +7,7 @@ import evos.tightbudget.view.MainScreenView;
 /**
  * Created by S on 15/02/2016.
  */
-public class CategoryFragmentPresenter {
+public class CategoryFragmentPresenter implements BudgetCategory.OutgoingExpenseAddedCallback{
     private final CategoryFragmentView categoryFragmentView;
     private final BudgetCategory category;
 
@@ -15,9 +15,8 @@ public class CategoryFragmentPresenter {
 
         this.categoryFragmentView = categoryFragmentView;
         this.category = category;
-    }
 
-    public void bind() {
+        this.category.addOutgoingExpenseAddedCallback(this);
         categoryFragmentView.setCurrentPosition(category.getName(), category.getTotalSpend(), category.getBudget());
         categoryFragmentView.setOutgoingExpenseData(category.getOutgoings());
     }
@@ -26,4 +25,8 @@ public class CategoryFragmentPresenter {
         return categoryFragmentView;
     }
 
+    @Override
+    public void invoke(String categoryName) {
+        categoryFragmentView.dataUpdated();
+    }
 }

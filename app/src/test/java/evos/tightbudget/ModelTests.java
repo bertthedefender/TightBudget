@@ -48,7 +48,7 @@ public class ModelTests {
         assertThat(category.getOutgoingCount(), is(1));
         assertThat(category.getOutgoing(0).getDescription(), is("ExpectedDescription"));
         assertThat(category.getOutgoing(0).getAmount().asPence(), is(50));
-        assertTrue(category.getOutgoing(0).getDate().equals(Utils.getDate(2001,01,01)));
+        assertTrue(category.getOutgoing(0).getDate().equals(Utils.getDate(2001, 01, 01)));
 
     }
 
@@ -56,12 +56,36 @@ public class ModelTests {
     public void givenACategoryHasMultipleExpenses_theCorrectExpenseTotalIsCalculated() {
 
         BudgetCategory category = new Category(CATEGORY_NAME, BUDGET_AMOUNT);
-        category.addOutgoing(new OutgoingExpense("Item 1", Utils.getDate(2015,12,15), Amount.fromPence(50)));
-        category.addOutgoing(new OutgoingExpense("Item 2", Utils.getDate(2015,12,16), Amount.fromPence(100)));
+        category.addOutgoing(new OutgoingExpense("Item 1", Utils.getDate(2015, 12, 15), Amount.fromPence(50)));
+        category.addOutgoing(new OutgoingExpense("Item 2", Utils.getDate(2015, 12, 16), Amount.fromPence(100)));
 
         assertThat(category.getTotalSpend().asPence(), is(150));
     }
 
+    @Test
+    public void whenANewOutgoingIsAdded_theCateogryNotifiesItsObservers() {
+
+        BudgetCategory category = new Category("Test", Amount.fromPence(100));
+        OutgoingExpense expense = new OutgoingExpense("X", TestHelpers.anyDate, Amount.fromPence(10));
+        CapturingNewExpenseListener capturingNewExpenseListener = new CapturingNewExpenseListener();
+
+        category.addOutgoingExpenseAddedCallback(capturingNewExpenseListener);
+
+        category.addOutgoing(expense);
+
+        assertThat(capturingNewExpenseListener.capturedCategory, is("Test"));
+
+    }
+
+    private class CapturingNewExpenseListener implements BudgetCategory.OutgoingExpenseAddedCallback {
+
+        public String capturedCategory;
+
+        @Override
+        public void invoke(String categoryName) {
+            capturedCategory = categoryName;
+        }
+    }
 
 
 }

@@ -41,7 +41,6 @@ public class CategoryFragmentTests extends ActivityInstrumentationTestCase2<Test
 
         getActivity().addFragment(categoryFragment);
 
-        presenter.bind();
 
         getInstrumentation().waitForIdleSync();
 

@@ -15,4 +15,10 @@ public interface BudgetCategory extends JSONPersistence {
     List<Expense> getOutgoings();
     int getOutgoingCount();
 
+    void addOutgoingExpenseAddedCallback(OutgoingExpenseAddedCallback callback);
+
+    interface OutgoingExpenseAddedCallback {
+        void invoke(String categoryName);
+    }
+
 }

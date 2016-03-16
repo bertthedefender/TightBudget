@@ -59,7 +59,7 @@ public class MainScreenPresenterTest {
     public void whenTheViewFiresTheAddNewOutgoingEvent_thePresenterIsNotified() {
         CapturingMainView fakeMainView = new CapturingMainView();
         MainScreenPresenter presenter = new MainScreenPresenter(fakeMainView, model);
-        fakeMainView.callback.addNewOutgoing("Category 1");
+        fakeMainView.newOutgoingClickedCallback.addNewOutgoingClicked("Category 1");
         assertThat(fakeMainView.showAddDialogCalled, is(true));
 
     }
@@ -68,7 +68,7 @@ public class MainScreenPresenterTest {
 
         List<CategoryFragmentView> categories = new ArrayList<>();
         public String capturedBudgetText;
-        public Callback callback;
+        public NewOutgoingClickedCallback newOutgoingClickedCallback;
         public boolean showAddDialogCalled = false;
         private boolean displayRefreshed = false;
 
@@ -84,8 +84,8 @@ public class MainScreenPresenterTest {
         }
 
         @Override
-        public void addCallback(Callback callback) {
-            this.callback = callback;
+        public void addNewOutgoingClickedCallback(NewOutgoingClickedCallback newOutgoingClickedCallback) {
+            this.newOutgoingClickedCallback = newOutgoingClickedCallback;
         }
 
         @Override
@@ -93,10 +93,6 @@ public class MainScreenPresenterTest {
             showAddDialogCalled = true;
         }
 
-        @Override
-        public void refreshCurrentCategoryDisplay() {
-            displayRefreshed = true;
-        }
 
 
     }

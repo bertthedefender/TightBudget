@@ -41,7 +41,6 @@ public class RegularPaymentsPresenterTest {
     @Test
     public void givenACategoryThatIndicatesRegularPayments_thePresenterSetsTheViewAppropriately() {
 
-
         CapturingRegularPaymentsView capturingRegularPaymentsView = new CapturingRegularPaymentsView();
 
         RegularPaymentsPresenter presenter = new RegularPaymentsPresenter(capturingRegularPaymentsView, regularCategory);

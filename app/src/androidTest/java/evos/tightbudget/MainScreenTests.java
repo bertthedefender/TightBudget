@@ -50,7 +50,7 @@ public class MainScreenTests extends ActivityInstrumentationTestCase2<MainScreen
 
         final MainScreen mainScreen = (MainScreen)getActivity();
 
-        mainScreen.addCallback(new MainScreenView.Callback() {
+        mainScreen.addNewOutgoingClickedCallback(new MainScreenView.NewOutgoingClickedCallback() {
             @Override
             public void addNewOutgoing(String selectedCategory) {
                 capturedIndex[0] = selectedCategory;

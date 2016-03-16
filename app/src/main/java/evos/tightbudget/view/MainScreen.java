@@ -35,7 +35,7 @@ public class MainScreen extends AppCompatActivity implements MainScreenView {
     private TextView totalBudget;
     private ViewPager viewPager;
     private CategoryPagerAdapter categoryPagerAdapter;
-    private List<Callback> callbacks = new ArrayList<>();
+    private List<NewOutgoingClickedCallback> newOutgoingClickedCallbacks = new ArrayList<>();
 
 
     @Override
@@ -50,11 +50,11 @@ public class MainScreen extends AppCompatActivity implements MainScreenView {
     }
 
     @Override
-    public void addCallback(Callback callback) {
-        callbacks.add(callback);
+    public void addNewOutgoingClickedCallback(NewOutgoingClickedCallback newOutgoingClickedCallback) {
+        newOutgoingClickedCallbacks.add(newOutgoingClickedCallback);
     }
 
-    @Override
+       @Override
     public void showNewOutgoingDialog(NewOutgoingExpenseView view) {
 
         FragmentManager fm = getSupportFragmentManager();
@@ -63,17 +63,6 @@ public class MainScreen extends AppCompatActivity implements MainScreenView {
         dialog.show(fm, null);
 
     }
-
-    @Override
-    public void refreshCurrentCategoryDisplay() {
-
-        CategoryPagerAdapter adapter = (CategoryPagerAdapter)viewPager.getAdapter();
-        CategoryFragment categoryFragment = (CategoryFragment)((CategoryPagerAdapter) viewPager.getAdapter()).getItem(viewPager.getCurrentItem());
-
-        categoryFragment.dataUpdated();
-
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -115,8 +104,8 @@ public class MainScreen extends AppCompatActivity implements MainScreenView {
 
                 CategoryPagerAdapter adapter = (CategoryPagerAdapter)viewPager.getAdapter();
                 CategoryFragment selectedFragment = (CategoryFragment)adapter.categoryFragments.get(viewPager.getCurrentItem());
-                for (Callback callback:callbacks) {
-                    callback.addNewOutgoing(selectedFragment.getCategoryName());
+                for (NewOutgoingClickedCallback newOutgoingClickedCallback : newOutgoingClickedCallbacks) {
+                    newOutgoingClickedCallback.addNewOutgoingClicked(selectedFragment.getCategoryName());
                 }
             }
         });

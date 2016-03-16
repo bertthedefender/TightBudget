@@ -14,6 +14,7 @@ public class Category implements BudgetCategory {
     private String categoryName;
     private Amount budgetAmount;
     private List<Expense> expenses;
+    private ArrayList<OutgoingExpenseAddedCallback> outgoingExpenseAddedCallbacks = new ArrayList<>();
 
     public Category(String categoryName, Amount budgetAmount) {
         expenses = new ArrayList<>();
@@ -44,11 +45,20 @@ public class Category implements BudgetCategory {
     @Override
     public void addOutgoing(Expense expense) {
         this.expenses.add(0,expense);
+
+        for (OutgoingExpenseAddedCallback callback:outgoingExpenseAddedCallbacks) {
+            callback.invoke(getName());
+        }
     }
 
     @Override
     public int getOutgoingCount() {
         return expenses.size();
+    }
+
+    @Override
+    public void addOutgoingExpenseAddedCallback(OutgoingExpenseAddedCallback callback) {
+        outgoingExpenseAddedCallbacks.add(callback);
     }
 
     @Override

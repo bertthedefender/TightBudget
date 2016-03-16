@@ -41,7 +41,6 @@ public class CategoryFragmentPresenterTest {
     {
         CategoryFragmentPresenter categoryFragmentPresenter = new CategoryFragmentPresenter(capturingCategoryFragment, category);
 
-        categoryFragmentPresenter.bind();
 
         assertThat(capturingCategoryFragment.categoryName, is(EXPECTED_CATEGORY_NAME));
         assertThat(capturingCategoryFragment.currentSpend.asPence(), is(EXPECTED_CURRENT_POSITION.asPence()));
