@@ -77,6 +77,35 @@ public class ModelTests {
 
     }
 
+    @Test
+    public void whenANewCategoryIsAdded_theModelNotifiesItsObservers() {
+
+        CapturingCategoryAddedCallback capturingCategoryAddedCallback = new CapturingCategoryAddedCallback();
+
+
+        TightBudgetModel model = new TightBudgetModel(Amount.fromPence(1000));
+
+        model.addCategoryAddedCallback(capturingCategoryAddedCallback);
+
+        Category category = new Category("expected",Amount.fromPence(100));
+        model.addCategory(category);
+
+        assertThat(capturingCategoryAddedCallback.capturedName, is("expected"));
+
+    }
+
+    private class CapturingCategoryAddedCallback implements TightBudgetModel.CategoryAddedCallback {
+
+
+        public String capturedName;
+
+        @Override
+        public void invoke(String categoryName) {
+            capturedName = categoryName;
+        }
+
+    }
+
     private class CapturingNewExpenseListener implements BudgetCategory.OutgoingExpenseAddedCallback {
 
         public String capturedCategory;

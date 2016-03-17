@@ -1,8 +1,6 @@
 package evos.tightbudget.model;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,8 +9,13 @@ import java.util.Map;
  */
 public class TightBudgetModel {
 
+    public interface CategoryAddedCallback {
+        void invoke(String categoryName);
+    }
+
     public Amount budgetAmount;
     public Map<String, BudgetCategory> categories;
+    private ArrayList<CategoryAddedCallback> categoryAddedCallbacks = new ArrayList<>();
 
     public TightBudgetModel() {
         categories = new HashMap<>();
@@ -20,23 +23,14 @@ public class TightBudgetModel {
 
     public void addCategory(BudgetCategory category) {
         categories.put(category.getName(), category);
+
+        for (CategoryAddedCallback categoryAddedCallback : categoryAddedCallbacks) {
+            categoryAddedCallback.invoke(category.getName());
+        }
     }
 
     public BudgetCategory getCategory(String expectedName) {
         return categories.get(expectedName);
-    }
-
-    public String asJSON() throws JSONException {
-
-        JSONObject jsonObject = new JSONObject();
-
-        for (Map.Entry<String, BudgetCategory> category : categories.entrySet()) {
-            jsonObject.put(category.getKey(), new JSONObject(categories.get(category.getKey()).asJson()));
-            jsonObject.put(category.getKey(), categories.get(category.getKey()).getOutgoings());
-        }
-
-        return jsonObject.toString();
-
     }
 
     public TightBudgetModel(Amount budgetAmount) {
@@ -44,8 +38,7 @@ public class TightBudgetModel {
         this.budgetAmount = budgetAmount;
     }
 
-    public TightBudgetModel fromJson(String json) {
-        return new TightBudgetModel();
+    public void addCategoryAddedCallback(CategoryAddedCallback categoryAddedCallback) {
+        this.categoryAddedCallbacks.add(categoryAddedCallback);
     }
-
 }
