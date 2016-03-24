@@ -2,6 +2,7 @@ package evos.tightbudget.view;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -36,6 +37,7 @@ public class MainScreen extends AppCompatActivity implements MainScreenView {
     private ViewPager viewPager;
     private CategoryPagerAdapter categoryPagerAdapter;
     private List<NewOutgoingClickedCallback> newOutgoingClickedCallbacks = new ArrayList<>();
+    private ArrayList<ManageCategoriesClickedCallback> manageCategoriesClickedCallbacks = new ArrayList<>();
 
 
     @Override
@@ -54,14 +56,24 @@ public class MainScreen extends AppCompatActivity implements MainScreenView {
         newOutgoingClickedCallbacks.add(newOutgoingClickedCallback);
     }
 
-       @Override
+    @Override
+    public void addManageCategoriesClickedCallback(ManageCategoriesClickedCallback manageCategoriesClickedCallback) {
+        manageCategoriesClickedCallbacks.add(manageCategoriesClickedCallback);
+    }
+
+    @Override
     public void showNewOutgoingDialog(NewOutgoingExpenseView view) {
-
         FragmentManager fm = getSupportFragmentManager();
-
         android.support.v4.app.DialogFragment dialog = (android.support.v4.app.DialogFragment) view;
         dialog.show(fm, null);
 
+    }
+
+    @Override
+    public void showManageCategoriesDialog(NewCategoryView categoryManagementView) {
+        FragmentManager fm = getSupportFragmentManager();
+        DialogFragment dialog = (DialogFragment) categoryManagementView;
+        dialog.show(fm, null);
     }
 
     @Override
@@ -72,11 +84,12 @@ public class MainScreen extends AppCompatActivity implements MainScreenView {
         menu.findItem(R.id.menu_main_manageCategories).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-
-                return false;
+                for(ManageCategoriesClickedCallback callback : manageCategoriesClickedCallbacks ) {
+                    callback.manageCategoriesClicked();
+                }
+                return true;
             }
         });
-
 
         return true;
     }

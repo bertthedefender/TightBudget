@@ -64,6 +64,14 @@ public class MainScreenPresenterTest {
 
     }
 
+    @Test
+    public void whenTheViewFiresTheAddNewCategoryEvent_thePresenterIsNotified() {
+        CapturingMainView fakeMainView = new CapturingMainView();
+        MainScreenPresenter presenter = new MainScreenPresenter(fakeMainView,model);
+        fakeMainView.manageCategoriesClickedCallback.manageCategoriesClicked();
+        assertThat(fakeMainView.showManageCategoriesCalled, is(true));
+    }
+
     class CapturingMainView implements MainScreenView {
 
         List<CategoryFragmentView> categories = new ArrayList<>();
@@ -71,6 +79,8 @@ public class MainScreenPresenterTest {
         public NewOutgoingClickedCallback newOutgoingClickedCallback;
         public boolean showAddDialogCalled = false;
         private boolean displayRefreshed = false;
+        public boolean showManageCategoriesCalled;
+        private ManageCategoriesClickedCallback manageCategoriesClickedCallback;
 
 
         @Override
@@ -86,6 +96,11 @@ public class MainScreenPresenterTest {
         @Override
         public void addNewOutgoingClickedCallback(NewOutgoingClickedCallback newOutgoingClickedCallback) {
             this.newOutgoingClickedCallback = newOutgoingClickedCallback;
+        }
+
+        @Override
+        public void addManageCategoriesClickedCallback(ManageCategoriesClickedCallback manageCategoriesClickedCallback) {
+            this.manageCategoriesClickedCallback = manageCategoriesClickedCallback;
         }
 
         @Override

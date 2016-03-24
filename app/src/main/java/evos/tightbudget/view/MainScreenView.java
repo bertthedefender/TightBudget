@@ -11,9 +11,15 @@ public interface MainScreenView {
 
     void addNewOutgoingClickedCallback(NewOutgoingClickedCallback newOutgoingClickedCallback);
 
+    void addManageCategoriesClickedCallback(ManageCategoriesClickedCallback manageCategoriesClickedCallback);
+
     void showNewOutgoingDialog(NewOutgoingExpenseView outgoingExpenseView);
+    void showManageCategoriesDialog(NewCategoryView categoryManagementView);
 
     interface NewOutgoingClickedCallback {
         void addNewOutgoingClicked(String selectedCategory);
+    }
+    interface ManageCategoriesClickedCallback {
+        void manageCategoriesClicked();
     }
 }
