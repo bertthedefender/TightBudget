@@ -18,7 +18,7 @@ import evos.tightbudget.model.BudgetCategory;
 public class NewCategoryFragment extends DialogFragment implements NewCategoryView {
     @Override
     public void setCategories(Map<String, BudgetCategory> categories) {
-
+        int x=0;
     }
 
     @Nullable
